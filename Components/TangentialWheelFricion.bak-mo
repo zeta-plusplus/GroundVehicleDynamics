@@ -1,0 +1,41 @@
+within GroundVehicleDynamics.Components;
+
+model TangentialWheelFricion
+
+  import SI = Modelica.Units.SI;
+  import MB = Modelica.Mechanics.MultiBody;
+  import Frames = Modelica.Mechanics.MultiBody.Frames;
+  import Types = Modelica.Mechanics.MultiBody.Types;
+
+  extends MB.Interfaces.PartialOneFrame_b;
+
+  Modelica.Blocks.Interfaces.RealInput Fn(unit="N")
+    "Normal contact force magnitude, >= 0";
+  Modelica.Blocks.Interfaces.RealInput wRoll(unit="rad/s")
+    "Wheel angular velocity around disc axis";
+
+  parameter SI.Length rDisc = 1 "Disc radius";
+  parameter Integer axisDisc = 2
+    "Disc axis in frame_b: 1=x, 2=y, 3=z";
+  parameter Real mu = 0.8 "Coulomb friction coefficient";
+  parameter SI.TranslationalDampingConstant cSlip = 500
+    "Viscous slip gain";
+  parameter SI.Velocity vSmall = 1e-4
+    "Regularization threshold";
+
+protected
+  Real eAxis[3];
+  Real ez[3] = {0,0,1};
+  Real a_world[3];
+  Real tDir_raw[3];
+  Real tDir_world[3];
+  Real v_world[3];
+  Real vt;
+  SI.Velocity vSlip;
+  SI.Force Ft_unsat;
+  SI.Force Ft;
+  Real force_world[3];
+
+
+
+end TangentialWheelFricion;

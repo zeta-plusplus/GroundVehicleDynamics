@@ -27,11 +27,11 @@ protected
   Real rDir_world[3];
   units.Position r_btm_world[3];
   units.Position r_btm_a[3];
+  units.Force f_btm_a[3];
+  units.Torque t_btm_a[3];
 
 //********************************************************************************
 equation
-  Connections.branch(frame_a.R, frame_btm.R);
-
   eAxis = if axisDisc == 1 then {1,0,0}
           elseif axisDisc == 2 then {0,1,0}
           else {0,0,1};
@@ -51,24 +51,14 @@ equation
   frame_btm.r_0 = frame_a.r_0 + r_btm_world;
   frame_btm.R   = frame_a.R;
 
-  // r_btm_world is a genuine world-frame vector -> must be resolved into
-  // frame_a's local axes with resolve2 (world -> local). This part was
-  // already correct.
   r_btm_a = Frames.resolve2(frame_a.R, r_btm_world);
+  f_btm_a = Frames.resolve2(frame_a.R, frame_btm.f);
+  t_btm_a = Frames.resolve2(frame_a.R, frame_btm.t);
 
-  // frame_btm.f / frame_btm.t are ALREADY resolved in frame_btm's own local
-  // axes (Modelica MultiBody connector convention: "Cut-force/torque
-  // resolved in connector frame"). Since frame_btm.R = frame_a.R (no
-  // relative rotation between the two frames), that local representation
-  // is numerically identical to frame_a's local representation, so NO
-  // further resolve1/resolve2 call is needed or correct here - compare
-  // with Modelica.Mechanics.MultiBody.Parts.FixedTranslation:
-  //   zeros(3) = frame_a.f + frame_b.f;
-  //   zeros(3) = frame_a.t + frame_b.t + cross(r, frame_b.f);
-  // where "r" is already expressed in frame_a-local coordinates.
-  frame_a.f = -frame_btm.f;
-  frame_a.t = -(frame_btm.t + cross(r_btm_a, frame_btm.f));
-
+  frame_a.f = -Frames.resolve1(frame_a.R, f_btm_a);
+  frame_a.t = -Frames.resolve1(frame_a.R, t_btm_a + cross(r_btm_a, f_btm_a));
+  
+  
 annotation(
     Icon(graphics = {Ellipse(pattern = LinePattern.Dash, extent = {{-100, 100}, {100, -100}}), Text(origin = {19, 0}, extent = {{-11, 6}, {11, -6}}, textString = "center"), Text(origin = {1, -84}, extent = {{-11, 6}, {11, -6}}, textString = "bottom"), Text(origin = {0, 112}, textColor = {0, 0, 255}, extent = {{-100, 8}, {100, -8}}, textString = "%name")}, coordinateSystem(preserveAspectRatio = false, extent = {{-100, -100}, {100, 100}})),
     Diagram(graphics));

@@ -1,0 +1,138 @@
+within GroundVehicleDynamics.Components;
+
+model WheelGroundTangentialForce
+  import SI = Modelica.Units.SI;
+  import MB = Modelica.Mechanics.MultiBody;
+  import Frames = Modelica.Mechanics.MultiBody.Frames;
+
+  extends MB.Interfaces.PartialOneFrame_b;
+
+  Modelica.Blocks.Interfaces.RealInput u_Fn(unit="N") 
+    "Normal contact force magnitude (>=0)" annotation(
+    Placement(transformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {100, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  Modelica.Blocks.Interfaces.RealInput u_wRoll(unit="rad/s")
+    "Wheel spin angular velocity around wheel axis" annotation(
+    Placement(transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-40, 60}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+
+  parameter SI.Length rDisc = 1 "Wheel radius";
+  parameter Integer axisDisc = 2
+    "Wheel spin axis in frame_b: 1=x, 2=y, 3=z";
+  parameter Real mu = 0.8 "Coulomb friction coefficient";
+
+  parameter SI.TranslationalDampingConstant cSlip = 1000
+    "Rolling-direction gain";
+  parameter SI.TranslationalDampingConstant cSide = 1500
+    "Side-slip gain";
+
+  parameter Real sideForceRatio(min=0, max=1) = 0.35
+    "Max lateral force ratio relative to mu*Fn";
+
+  parameter SI.Velocity vReg = 1e-4
+    "Geometry regularization threshold";
+  parameter SI.Velocity vRollReg = 0.05
+    "Rolling slip regularization velocity";
+  parameter SI.Velocity vSideReg = 0.10
+    "Side slip regularization velocity";
+
+  parameter Boolean enableFrictionOnlyWhenLoaded = true
+    "If true, no tangential force when Fn <= 0";
+  
+protected
+  Real eAxis[3];
+  Real ez[3] = {0,0,1};
+  Real a_world[3];
+  Real tRaw[3];
+  Real tDir[3];
+  Real sRaw[3];
+  Real sDir[3];
+  Real v0_world[3];
+
+public
+  SI.Velocity vRoll;
+  SI.Velocity vSide;
+  SI.Velocity vSlipRoll;
+  SI.Force FtRoll_cmd;
+  SI.Force FtSide_cmd;
+
+protected
+  SI.Force Ft_lim;
+  SI.Force FtRoll_lim;
+  SI.Force FtSide_lim;
+  SI.Force FtRoll;
+  SI.Force FtSide;
+  Real f_world[3];
+
+public
+equation
+  // 車輪軸の単位ベクトル（frame_b座標）
+  eAxis = if axisDisc == 1 then {1,0,0}
+          elseif axisDisc == 2 then {0,1,0}
+          else {0,0,1};
+
+  // 車輪軸を world 座標へ変換
+  a_world = Frames.resolve1(frame_b.R, eAxis);
+
+  // 地面内の転がり方向
+  tRaw = cross(a_world, ez);
+  
+  tDir =
+    if Modelica.Math.Vectors.length(tRaw) > vReg then
+      tRaw / Modelica.Math.Vectors.length(tRaw)
+    else
+      {1,0,0};
+
+  // 地面内の横滑り方向
+  sRaw = cross(ez, tDir);
+
+  sDir =
+    if Modelica.Math.Vectors.length(sRaw) > vReg then
+      sRaw / Modelica.Math.Vectors.length(sRaw)
+    else
+      {0,1,0};
+
+  // 接触点フレーム原点の world 速度
+  v0_world = der(frame_b.r_0);
+
+  // 地面内2方向への速度分解
+  vRoll = v0_world * tDir;
+  vSide = v0_world * sDir;
+
+  // 転がり方向 slip
+  vSlipRoll = vRoll - rDisc*u_wRoll;
+
+  // 摩擦限界
+  Ft_lim = mu*max(u_Fn, 0);
+
+  // 転がり方向と横方向に別々の上限を設定
+  FtSide_lim = sideForceRatio*Ft_lim;
+  FtRoll_lim = sqrt(max(Ft_lim^2 - FtSide_lim^2, 0));
+
+  // 滑らかに飽和する指令値
+  FtRoll_cmd =
+    if enableFrictionOnlyWhenLoaded and u_Fn <= 0 then 0
+    else FtRoll_lim*Modelica.Math.tanh(cSlip*vSlipRoll/max(FtRoll_lim*vRollReg, 1e-9));
+
+  FtSide_cmd =
+    if enableFrictionOnlyWhenLoaded and u_Fn <= 0 then 0
+    else -FtSide_lim*Modelica.Math.tanh(cSide*vSide/max(FtSide_lim*vSideReg, 1e-9));
+
+  // 実際に使う力
+  FtRoll = FtRoll_cmd;
+  FtSide = FtSide_cmd;
+
+  // world座標で接線力を与える
+  f_world = FtRoll*tDir + FtSide*sDir;
+
+  // frame_b のcut-forceは frame_b座標で与える
+  frame_b.f = Frames.resolve2(frame_b.R, f_world);
+
+  // この部品自身は力のみ、偶力は与えない
+  frame_b.t = zeros(3);
+
+  
+annotation(
+    defaultComponentName = "FtWheel",
+    Icon(coordinateSystem(extent = {{-40, -20}, {240, 60}}), graphics = {Line(origin = {90, 0}, points = {{10, 0}, {90, 0}}, thickness = 2, arrow = {Arrow.None, Arrow.Open}, arrowSize = 9), Line(origin = {84.01, 33.21}, points = {{-124.013, 10.7924}, {-84.013, -11.2076}, {-44.0129, -23.2076}, {-10.0129, -31.2076}, {15.9871, -33.2076}, {41.9871, -31.2076}, {77.987, -23.2076}, {113.987, -11.2076}, {155, 10.7924}}, thickness = 4), Line(origin = {10, 26}, points = {{90, -26}, {90, 30}}, pattern = LinePattern.Dash, thickness = 2, arrow = {Arrow.None, Arrow.Open}, arrowSize = 9)}),
+    Diagram(graphics));
+    
+end WheelGroundTangentialForce;
