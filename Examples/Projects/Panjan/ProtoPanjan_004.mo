@@ -19,9 +19,7 @@ model ProtoPanjan_004
   parameter Modelica.Units.SI.TranslationalDampingConstant Glb_WheelcSlip = 1000;
   parameter Modelica.Units.SI.TranslationalDampingConstant Glb_WheelcSide = 5000;
   /****************************************/
-  //parameter Real Glb_tblGrd[5,5]=[0, -10, -0.9, -0.89, 0; 0, 0, 0, 0, 0; 1, 0, 0, 0, 0; 2, 0, 0, 0, 0; 10, 0, 0, 0, 0];
-  //parameter Real Glb_tblGrd[5,8]=[0, -10, -5, -0.02, -0.01, 0, 5, 10; -2, 0.2, 0.2, 0.2, 0.1, 0, 0, 0; 0, 0.2, 0.2, 0.2, 0.1, 0, 0, 0; 2, 0.2, 0.2, 0.2, 0.1, 0, 0, 0; 10, 0.2, 0.2, 0.2, 0.1, 0, 0, 0];
-  //parameter Real Glb_tblGrd[5,10]=[0, -30, -5, -0.01, 0, 4.99, 5, 9.99, 10, 40; -20, 0.6, 0.6, 0.6, 0.4, 0.4, 0.2, 0.2, 0, 0; 0, 0.6, 0.6, 0.6, 0.4, 0.4, 0.2, 0.2, 0, 0; 20, 0.6, 0.6, 0.6, 0.4, 0.4, 0.2, 0.2, 0, 0; 60, 0.6, 0.6, 0.6, 0.4, 0.4, 0.2, 0.2, 0, 0];
+  //parameter Real Glb_tblGrd[5, 5] = [0, -20, -0.9, -0.89, 40; -20, 0, 0, 0, 0; 1, 0, 0, 0, 0; 2, 0, 0, 0, 0; 40, 0, 0, 0, 0];
   parameter Real Glb_tblGrd[5, 14] = [0, -30, -5, -0.01, 0, 1.99, 2, 3.99, 4, 5.99, 6, 7.99, 8, 40; -20, 1, 1, 1, 0.8, 0.8, 0.6, 0.6, 0.4, 0.4, 0.2, 0.2, 0, 0; 0, 1, 1, 1, 0.8, 0.8, 0.6, 0.6, 0.4, 0.4, 0.2, 0.2, 0, 0; 20, 1, 1, 1, 0.8, 0.8, 0.6, 0.6, 0.4, 0.4, 0.2, 0.2, 0, 0; 60, 1, 1, 1, 0.8, 0.8, 0.6, 0.6, 0.4, 0.4, 0.2, 0.2, 0, 0];
   /****************************************/
   inner Modelica.Mechanics.MultiBody.World world(animateGround = true, groundColor = {130, 200, 130}, groundLength_u = 4, label2 = "z", n = {0, 0, -1}) annotation(
@@ -405,6 +403,5 @@ equation
     version = "",
     uses(Modelica(version = "4.1.0")),
     experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-09, Interval = 0.02),
-    __OpenModelica_simulationFlags(lv = "LOG_STDOUT,LOG_ASSERT,LOG_STATS", s = "dassl", variableFilter = ".*"),
-  __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian");
+    __OpenModelica_simulationFlags(lv = "LOG_STDOUT,LOG_ASSERT,LOG_STATS", s = "dassl", variableFilter = ".*"));
 end ProtoPanjan_004;
