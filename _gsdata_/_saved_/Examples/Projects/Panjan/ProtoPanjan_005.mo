@@ -24,6 +24,16 @@ model ProtoPanjan_005
   /****************************************/
   inner Modelica.Mechanics.MultiBody.World world(animateGround = true, groundColor = {130, 200, 130}, groundLength_u = 4, label2 = "z", n = {0, 0, -1}) annotation(
     Placement(transformation(origin = {66, 15}, extent = {{-60, 0}, {-40, 20}})));
+  
+  GroundVehicleDynamics.Visualization.TerrainTableVisualizer VisTerrainTbl(table = Glb_tblGrd)  annotation(
+    Placement(transformation(origin = {56, 98}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Mechanics.MultiBody.Visualizers.FixedShape markerXaxis(shapeType = "box", length = 1.1*(Glb_grdXMax), width = 0.04, height = 0.03, lengthDirection = {1, 0, 0}, widthDirection = {0, 1, 0}, r_shape = {0, 0, 0}, color = {0, 0, 0}, specularCoefficient = 0.0) annotation(
+    Placement(transformation(origin = {60, 61}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Mechanics.MultiBody.Visualizers.FixedShape markerYaxis(shapeType = "box", length = 1.1*(Glb_grdYMax), width = 0.04, height = 0.03, lengthDirection = {0, 1, 0}, widthDirection = {1, 0, 0}, r_shape = {0, 0, 0}, color = {0, 0, 0}, specularCoefficient = 0.0) annotation(
+    Placement(transformation(origin = {60, 39}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Mechanics.MultiBody.Visualizers.FixedShape markerZaxis(shapeType = "box", length = 10*(Glb_grdZMax), width = 0.04, height = 0.03, lengthDirection = {0, 0, 1}, widthDirection = {1, 0, 0}, r_shape = {0, 0, 0}, color = {0, 0, 0}, specularCoefficient = 0.0) annotation(
+    Placement(transformation(origin = {60, 18}, extent = {{-10, -10}, {10, 10}})));
+
   Modelica.Mechanics.MultiBody.Parts.BodyCylinder Wheel(r = {0, 0.1, 0}, length = Glb_WheelLength, diameter = Glb_WheelDiameter, r_0(each fixed = false), w_0_fixed = false, w_0_start = {0, 10, 0}) annotation(
     Placement(transformation(origin = {176, 220}, extent = {{10, -10}, {-10, 10}})));
   Modelica.Mechanics.MultiBody.Parts.BodyCylinder Fuselage(diameter = Glb_FuselageDiameter, length = Glb_FuselageLength, r = {0, 1, 0}, w_0_fixed = true, w_0_start = {Glb_w_0_x, Glb_w_0_y, Glb_w_0_z}) annotation(
@@ -121,71 +131,16 @@ model ProtoPanjan_005
   Modelica.Mechanics.MultiBody.Sensors.AbsoluteAngles absoluteAngles_ctr annotation(
     Placement(transformation(origin = {205, 241}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
   //-----------------------------------------------------------------
-  /*
-         * OpenModelica 用の地面可視化。
-         *
-         * Glb_tblGrd の各隣接4点から1セルを作り、
-         * セル平均高さの薄い box を world 座標系に表示する。
-         *
-         * Glb_tblGrd[1, 2:end] : u2 = y 座標
-         * Glb_tblGrd[2:end, 1] : u1 = x 座標
-         * Glb_tblGrd[2:end, 2:end] : z=f(x,y)
-         */
   parameter Integer nGrdCellX = size(Glb_tblGrd, 1) - 2 "x 方向セル数";
   parameter Integer nGrdCellY = size(Glb_tblGrd, 2) - 2 "y 方向セル数";
-  //parameter Real Glb_grdZMin = GroundVehicleDynamics.Visualization.TerrainTableVisualizer.tableZMin(Glb_tblGrd) "Glb_tblGrd 内の z 最小値";
-  //parameter Real Glb_grdZMax = GroundVehicleDynamics.Visualization.TerrainTableVisualizer.tableZMax(Glb_tblGrd) "Glb_tblGrd 内の z 最大値";
   parameter Real Glb_grdZMin= VisTerrainTbl.zMin;
   parameter Real Glb_grdZMax= VisTerrainTbl.zMax;
   parameter Real Glb_grdXMin = Glb_tblGrd[2, 1] "Glb_tblGrd 内の x 最小値";
   parameter Real Glb_grdXMax = Glb_tblGrd[size(Glb_tblGrd, 1), 1] "Glb_tblGrd 内の x 最大値";
   parameter Real Glb_grdYMin = Glb_tblGrd[1, 2] "Glb_tblGrd 内の Y 最小値";
   parameter Real Glb_grdYMax = Glb_tblGrd[1, size(Glb_tblGrd, 2)] "Glb_tblGrd 内の Y 最大値";
-  parameter Real grdCellDX[nGrdCellX, nGrdCellY] = {{Glb_tblGrd[i + 2, 1] - Glb_tblGrd[i + 1, 1] for j in 1:nGrdCellY} for i in 1:nGrdCellX} "各セルの x 方向幅";
-  parameter Real grdCellDY[nGrdCellX, nGrdCellY] = {{Glb_tblGrd[1, j + 2] - Glb_tblGrd[1, j + 1] for j in 1:nGrdCellY} for i in 1:nGrdCellX} "各セルの y 方向幅";
-  parameter Real grdCellZ[nGrdCellX, nGrdCellY] = {{0.25*(Glb_tblGrd[i + 1, j + 1] + Glb_tblGrd[i + 2, j + 1] + Glb_tblGrd[i + 1, j + 2] + Glb_tblGrd[i + 2, j + 2]) for j in 1:nGrdCellY} for i in 1:nGrdCellX} "セル4頂点の z 平均値";
-  parameter Modelica.Units.SI.Length Glb_grdVisThickness[nGrdCellX, nGrdCellY] = {{grdCellZ[i, j] - Glb_grdZMin for j in 1:nGrdCellY} for i in 1:nGrdCellX} "可視化 box の厚さ。物理モデルには影響しない";
-  /*
-        parameter Modelica.Units.SI.Length Glb_grdVisThickness[nGrdCellX, nGrdCellY] =
-          {{0.02
-            for j in 1:nGrdCellY} for i in 1:nGrdCellX}
-          "可視化 box の厚さ。物理モデルには影響しない";
-        */
-  //-----
-  parameter Real grdCellX0[nGrdCellX, nGrdCellY] = {{Glb_tblGrd[i + 1, 1] for j in 1:nGrdCellY} for i in 1:nGrdCellX} "各セルの x 下端";
-  parameter Real grdCellY0[nGrdCellX, nGrdCellY] = {{Glb_tblGrd[1, j + 1] for j in 1:nGrdCellY} for i in 1:nGrdCellX} "各セルの y 下端";
-  Modelica.Mechanics.MultiBody.Visualizers.FixedShape markerXaxis(shapeType = "box", length = 1.1*(Glb_grdXMax), width = 0.04, height = 0.03, lengthDirection = {1, 0, 0}, widthDirection = {0, 1, 0}, r_shape = {0, 0, 0}, color = {0, 0, 0}, specularCoefficient = 0.0) annotation(
-    Placement(transformation(origin = {60, 61}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Mechanics.MultiBody.Visualizers.FixedShape markerYaxis(shapeType = "box", length = 1.1*(Glb_grdYMax), width = 0.04, height = 0.03, lengthDirection = {0, 1, 0}, widthDirection = {1, 0, 0}, r_shape = {0, 0, 0}, color = {0, 0, 0}, specularCoefficient = 0.0) annotation(
-    Placement(transformation(origin = {60, 39}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Mechanics.MultiBody.Visualizers.FixedShape markerZaxis(shapeType = "box", length = 10*(Glb_grdZMax), width = 0.04, height = 0.03, lengthDirection = {0, 0, 1}, widthDirection = {1, 0, 0}, r_shape = {0, 0, 0}, color = {0, 0, 0}, specularCoefficient = 0.0) annotation(
-    Placement(transformation(origin = {60, 18}, extent = {{-10, -10}, {10, 10}})));
   //-----------------------------------------------------------------
-  /*
-                     * table のヘッダ行・ヘッダ列を除いた z データの最小値
-                     */
-  /*
-                 * table のヘッダ行・ヘッダ列を除いた z データの最大値
-                 */
-  /*
-               * 連続 jet カラーマップ。
-               *
-               * zMin -> 濃青
-               * zMax -> 濃赤
-               *
-               * zMin, zMax は常に入力 table の z データから取得するため、
-               * テーブル値を変えても、その範囲全体が jet に写像される。
-               */
-  //-----------------------------------------------------------------
-  /*
-             * 地面タイル1枚。
-             *
-             * frame_a を world.frame_b へ接続すると、
-             * xCenter, yCenter, zCenter が world 座標として使われる。
-             */
-  //-----------------------------------------------------------------
-  Visualization.TerrainTableVisualizer VisTerrainTbl(table = Glb_tblGrd)  annotation(
-    Placement(transformation(origin = {56, 98}, extent = {{-10, -10}, {10, 10}})));
+  
 equation
   connect(Fuselage.frame_b, Wheel.frame_a) annotation(
     Line(points = {{192, 220}, {186, 220}}, color = {95, 95, 95}));
@@ -305,15 +260,6 @@ equation
     Line(points = {{126, 220}, {126, 208}, {130, 208}, {130, 196}}, color = {0, 0, 127}));
   connect(w_absolute1.w[2], FtWheel1.u_wRoll) annotation(
     Line(points = {{326, 220}, {326, 206}, {310, 206}, {310, 194}}, color = {0, 0, 127}));
-//-----------------------------------------------------------------
-/*
-  for i in 1:nGrdCellX loop
-    for j in 1:nGrdCellY loop
-      connect(world.frame_b, terrainCell[i, j].frame_a);
-    end for;
-  end for;
-*/
-//-----------------------------------------------------------------
   connect(world.frame_b, markerXaxis.frame_a) annotation(
     Line(points = {{26, 25}, {38, 25}, {38, 61}, {50, 61}}, color = {95, 95, 95}));
   connect(markerYaxis.frame_a, world.frame_b) annotation(

@@ -16,7 +16,10 @@ model TerrainTableVisualizer "CombiTable2D 形式の地形テーブルを FixedS
      * table[2:end, 2:end] : z = f(u1,u2)
      */
   parameter Real table[:, :] = [0, 0, 1; 0, 0, 0; 1, 0, 0] "CombiTable2D/CombiTable2Ds 形式の地形データ";
-  parameter SI.Length visualThickness = 0.02 "各地形セル box の描画用厚さ";
+  //parameter SI.Length visualThickness = 0.02 "各地形セル box の描画用厚さ";
+  
+  parameter Modelica.Units.SI.Length visualThickness[nCellU1, nCellU2] = {{zCell[i, j] - zMin for j in 1:nCellU2} for i in 1:nCellU1} "可視化 box の厚さ。物理モデルには影響しない";
+  
   parameter SI.Length cellGap = 0 "隣接セル間の描画用隙間。物理モデルには影響しない";
   parameter Real zScale = 1.0 "描画上の z 倍率。色計算には影響しない";
   parameter Boolean enableAnimation = true "false の場合、全地形セルを animation 非表示にする";
@@ -138,7 +141,7 @@ model TerrainTableVisualizer "CombiTable2D 形式の地形テーブルを FixedS
     parameter SI.Length dU1(min = 0) "元テーブルにおける u1/x 方向セル幅";
     parameter SI.Length dU2(min = 0) "元テーブルにおける u2/y 方向セル幅";
     parameter SI.Length visualThickness(min = 1e-8) = 0.02 "box の描画用厚さ";
-    parameter SI.Length cellGap(min = 0) = 0 "隣接セル間の描画用 gap";
+    parameter SI.Length cellGap(min = 0) = 1e-5 "隣接セル間の描画用 gap";
     parameter Real zMin;
     parameter Real zMax;
     parameter Real zScale=1;
@@ -167,7 +170,7 @@ model TerrainTableVisualizer "CombiTable2D 形式の地形テーブルを FixedS
        * よって u2/y については、元セル中心 u2Start+dU2/2 を
        * r_shape[2] に指定する。
        */
-       r_shape = {u1Start + cellGap/2, u2Start + dU2/2, zCenter}, color = jetColor(zCenter/zScale, zMin, zMax), specularCoefficient = specularCoefficient, animation = enableAnimation);
+       r_shape = {u1Start + cellGap/2, u2Start + dU2/2, zCenter - visualThickness/2}, color = jetColor(zCenter/zScale, zMin, zMax), specularCoefficient = specularCoefficient, animation = enableAnimation);
   equation
     connect(frame_a, shape.frame_a);
   end TerrainCell;
@@ -178,7 +181,7 @@ model TerrainTableVisualizer "CombiTable2D 形式の地形テーブルを FixedS
      * 上位モデルが直接触る必要はない。
      * table の格子数に応じて自動生成される。
      */
-  TerrainCell cell[nCellU1, nCellU2](u1Start = u1Start, u2Start = u2Start, zCenter = zCell, dU1 = dU1, dU2 = dU2, each zMin = zMin, each zMax = zMax, each visualThickness = visualThickness, each cellGap = cellGap, each enableAnimation = enableAnimation, each specularCoefficient = specularCoefficient, each zScale= zScale);
+  TerrainCell cell[nCellU1, nCellU2](u1Start = u1Start, u2Start = u2Start, zCenter = zCell, dU1 = dU1, dU2 = dU2, each zMin = zMin, each zMax = zMax, visualThickness = visualThickness, each cellGap = cellGap, each enableAnimation = enableAnimation, each specularCoefficient = specularCoefficient, each zScale= zScale);
 protected
   /*
      * cellGap が局所セル寸法以上なら、表示寸法が負になる。
