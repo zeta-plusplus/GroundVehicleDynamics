@@ -126,6 +126,6 @@ equation
 
 annotation(
     defaultComponentName = "FtWheel",
-    Icon(coordinateSystem(extent = {{-40, -20}, {240, 60}}), graphics = {Line(origin = {90, 0}, points = {{10, 0}, {90, 0}}, thickness = 2, arrow = {Arrow.None, Arrow.Open}, arrowSize = 9), Line(origin = {84.01, 33.21}, points = {{-124.013, 10.7924}, {-84.013, -11.2076}, {-44.0129, -23.2076}, {-10.0129, -31.2076}, {15.9871, -33.2076}, {41.9871, -31.2076}, {77.987, -23.2076}, {113.987, -11.2076}, {155, 10.7924}}, thickness = 4), Line(origin = {10, 26}, points = {{90, -26}, {90, 30}}, pattern = LinePattern.Dash, thickness = 2, arrow = {Arrow.None, Arrow.Open}, arrowSize = 9)}),
+    Icon(coordinateSystem(preserveAspectRatio = false, extent = {{-40, -20}, {240, 60}}), graphics = {Line(origin = {90, 0}, points = {{10, 0}, {90, 0}}, thickness = 2, arrow = {Arrow.None, Arrow.Open}, arrowSize = 9), Line(origin = {84.01, 33.21}, points = {{-124.013, 10.7924}, {-84.013, -11.2076}, {-44.0129, -23.2076}, {-10.0129, -31.2076}, {15.9871, -33.2076}, {41.9871, -31.2076}, {77.987, -23.2076}, {113.987, -11.2076}, {155, 10.7924}}, thickness = 4), Line(origin = {10, 26}, points = {{90, -26}, {90, 30}}, pattern = LinePattern.Dash, thickness = 2, arrow = {Arrow.None, Arrow.Open}, arrowSize = 9)}),
     Diagram(graphics));
 end WheelGroundTangentialForce;

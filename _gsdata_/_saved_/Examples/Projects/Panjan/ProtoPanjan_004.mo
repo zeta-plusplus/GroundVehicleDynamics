@@ -403,6 +403,5 @@ equation
     version = "",
     uses(Modelica(version = "4.1.0")),
     experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-09, Interval = 0.02),
-    __OpenModelica_simulationFlags(lv = "LOG_STDOUT,LOG_ASSERT,LOG_STATS", s = "dassl", variableFilter = ".*"),
-  __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian");
+    __OpenModelica_simulationFlags(lv = "LOG_STDOUT,LOG_ASSERT,LOG_STATS", s = "dassl", variableFilter = ".*"));
 end ProtoPanjan_004;
