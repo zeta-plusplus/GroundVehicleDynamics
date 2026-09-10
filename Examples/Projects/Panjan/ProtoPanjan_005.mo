@@ -138,6 +138,14 @@ model ProtoPanjan_005
   parameter Real Glb_grdYMin = Glb_tblGrd[1, 2] "Glb_tblGrd 内の Y 最小値";
   parameter Real Glb_grdYMax = Glb_tblGrd[1, size(Glb_tblGrd, 2)] "Glb_tblGrd 内の Y 最大値";
   //-----------------------------------------------------------------
+  Modelica.Mechanics.MultiBody.Joints.Revolute revolute(phi(fixed = false, displayUnit = "deg"), useAxisFlange = false, animation = false, n = {0, 1, 0}) annotation(
+    Placement(transformation(origin = {230, 340}, extent = {{-6, -6}, {6, 6}})));
+  Modelica.Mechanics.MultiBody.Parts.Body bodyCenterNoRot(m = 0.0, animation = false) annotation(
+    Placement(transformation(origin = {244, 358}, extent = {{-4, -4}, {4, 4}}, rotation = 90)));
+  Modelica.Mechanics.MultiBody.Sensors.AbsoluteAngles absoluteAngles_ctrNoRot annotation(
+    Placement(transformation(origin = {219, 363}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
+  Modelica.Mechanics.MultiBody.Sensors.AbsoluteSensor absoluteSensor_ctrNoRot(animation = false, get_a = true, get_angles = true, get_r = true, get_v = true, resolveInFrame = Modelica.Mechanics.MultiBody.Types.ResolveInFrameA.world) annotation(
+    Placement(transformation(origin = {229, 363}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
 equation
   connect(Fuselage.frame_b, Wheel.frame_a) annotation(
     Line(points = {{192, 300}, {186, 300}}, color = {95, 95, 95}));
@@ -265,8 +273,16 @@ equation
     Line(points = {{26, 25}, {38, 25}, {38, 18}, {50, 18}}, color = {95, 95, 95}));
   connect(VisTerrainTbl.frame_a, world.frame_b) annotation(
     Line(points = {{36, 90}, {30, 90}, {30, 25}, {26, 25}}, color = {95, 95, 95}));
+  connect(Fuselage.frame_a, revolute.frame_a) annotation(
+    Line(points = {{212, 300}, {224, 300}, {224, 340}}, color = {95, 95, 95}));
+  connect(revolute.frame_b, bodyCenterNoRot.frame_a) annotation(
+    Line(points = {{236, 340}, {244, 340}, {244, 354}}, color = {95, 95, 95}));
+  connect(bodyCenterNoRot.frame_a, absoluteSensor_ctrNoRot.frame_a) annotation(
+    Line(points = {{244, 354}, {229, 354}, {229, 358}}, color = {95, 95, 95}));
+  connect(bodyCenterNoRot.frame_a, absoluteAngles_ctrNoRot.frame_a) annotation(
+    Line(points = {{244, 354}, {219, 354}, {219, 358}}, color = {95, 95, 95}));
   annotation(
-    Diagram(coordinateSystem(extent = {{-40, 340}, {500, 0}})),
+    Diagram(coordinateSystem(extent = {{-40, 380}, {500, 0}})),
     version = "",
     uses(Modelica(version = "4.1.0")),
     experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-09, Interval = 0.02),
