@@ -44,61 +44,61 @@ model ProtoPanjan_006
     Placement(transformation(origin = {60, 39}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Mechanics.MultiBody.Visualizers.FixedShape markerZaxis(shapeType = "box", length = 10*(Glb_grdZMax), width = 0.04, height = 0.03, lengthDirection = {0, 0, 1}, widthDirection = {1, 0, 0}, r_shape = {0, 0, 0}, color = {0, 0, 0}, specularCoefficient = 0.0) annotation(
     Placement(transformation(origin = {60, 18}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Mechanics.MultiBody.Parts.BodyCylinder WheelL(r = {0, 0.1, 0}, length = Glb_WheelLength, diameter = Glb_WheelDiameter, r_0(each fixed = false), w_0_fixed = false, w_0_start = {0, 10, 0}) annotation(
+  Modelica.Mechanics.MultiBody.Parts.BodyCylinder Wheel(r = {0, 0.1, 0}, length = Glb_WheelLength, diameter = Glb_WheelDiameter, r_0(each fixed = false), w_0_fixed = false, w_0_start = {0, 10, 0}) annotation(
     Placement(transformation(origin = {178, 300}, extent = {{10, -10}, {-10, 10}})));
-  Modelica.Mechanics.MultiBody.Parts.BodyCylinder FuselageL(diameter = Glb_FuselageDiameter, length = Glb_FuselageLength, r = {0, 1, 0}, w_0_fixed = true, w_0_start = {Glb_w_0_x, Glb_w_0_y, Glb_w_0_z}) annotation(
+  Modelica.Mechanics.MultiBody.Parts.BodyCylinder Fuselage(diameter = Glb_FuselageDiameter, length = Glb_FuselageLength, r = {0, 1, 0}, w_0_fixed = true, w_0_start = {Glb_w_0_x, Glb_w_0_y, Glb_w_0_z}) annotation(
     Placement(transformation(origin = {202, 300}, extent = {{10, -10}, {-10, 10}})));
   Modelica.Mechanics.MultiBody.Parts.Body bodyCenter(m = 0.001, r_0(start = {0, 0, Glb_z0_Ctr}, each fixed = true)) annotation(
     Placement(transformation(origin = {230, 314}, extent = {{-4, -4}, {4, 4}}, rotation = 90)));
-  Modelica.Mechanics.MultiBody.Parts.BodyCylinder FuselageR(diameter = Glb_FuselageDiameter, length = Glb_FuselageLength, r = {0, 1, 0}) annotation(
+  Modelica.Mechanics.MultiBody.Parts.BodyCylinder Fuselage1(diameter = Glb_FuselageDiameter, length = Glb_FuselageLength, r = {0, 1, 0}) annotation(
     Placement(transformation(origin = {248, 300}, extent = {{10, -10}, {-10, 10}})));
-  Modelica.Mechanics.MultiBody.Parts.BodyCylinder WheelR(diameter = Glb_WheelDiameter, length = Glb_WheelLength, r = {0, 0.1, 0}, r_0(each fixed = false), w_0_fixed = false, w_0_start = {0, 10, 0}) annotation(
+  Modelica.Mechanics.MultiBody.Parts.BodyCylinder Wheel1(diameter = Glb_WheelDiameter, length = Glb_WheelLength, r = {0, 0.1, 0}, r_0(each fixed = false), w_0_fixed = false, w_0_start = {0, 10, 0}) annotation(
     Placement(transformation(origin = {276, 300}, extent = {{10, -10}, {-10, 10}})));
   Modelica.Mechanics.MultiBody.Sensors.CutForce cutForce(animation = false, resolveInFrame = Modelica.Mechanics.MultiBody.Types.ResolveInFrameA.world) annotation(
     Placement(transformation(origin = {230, 282}, extent = {{-6, 6}, {6, -6}}, rotation = -90)));
-  Modelica.Mechanics.Translational.Sources.Position positionWhlBtmL annotation(
+  Modelica.Mechanics.Translational.Sources.Position position annotation(
     Placement(transformation(origin = {182, 208}, extent = {{-6, -6}, {6, 6}})));
-  Modelica.Mechanics.Translational.Components.ElastoGap elastoGapWhlL(c = Glb_c_GrdCntct, d = Glb_d_GrdCntct, s_rel0 = Glb_s_rel0_GrdCntct) annotation(
+  Modelica.Mechanics.Translational.Components.ElastoGap elastoGap(c = Glb_c_GrdCntct, d = Glb_d_GrdCntct, s_rel0 = Glb_s_rel0_GrdCntct) annotation(
     Placement(transformation(origin = {198, 174}, extent = {{-10, 10}, {10, -10}}, rotation = 90)));
-  Modelica.Mechanics.MultiBody.Forces.WorldForce forceNgrdL(animation = false) annotation(
+  Modelica.Mechanics.MultiBody.Forces.WorldForce force(animation = false) annotation(
     Placement(transformation(origin = {208, 266}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Mechanics.Translational.Sensors.ForceSensor forceSensorGrdN_L annotation(
+  Modelica.Mechanics.Translational.Sensors.ForceSensor forceSensor annotation(
     Placement(transformation(origin = {198, 200}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
   Modelica.Blocks.Sources.Constant const[3](k = {0, 0, 0}) annotation(
     Placement(transformation(origin = {194, 229}, extent = {{-4, -4}, {4, 4}})));
-  Modelica.Mechanics.MultiBody.Forces.WorldForce forceNgrdR(animation = false) annotation(
+  Modelica.Mechanics.MultiBody.Forces.WorldForce force1(animation = false) annotation(
     Placement(transformation(origin = {384, 266}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Sources.Constant const2[3](k = {0, 0, 0}) annotation(
     Placement(transformation(origin = {371, 218}, extent = {{-4, -4}, {4, 4}})));
-  Modelica.Mechanics.Translational.Sources.Position positionWhlBtmR annotation(
+  Modelica.Mechanics.Translational.Sources.Position position1 annotation(
     Placement(transformation(origin = {352, 207}, extent = {{-6, -6}, {6, 6}})));
-  Modelica.Mechanics.Translational.Components.ElastoGap elastoGapWhlR(c = Glb_c_GrdCntct, d = Glb_d_GrdCntct, s_rel0 = Glb_s_rel0_GrdCntct) annotation(
+  Modelica.Mechanics.Translational.Components.ElastoGap elastoGap1(c = Glb_c_GrdCntct, d = Glb_d_GrdCntct, s_rel0 = Glb_s_rel0_GrdCntct) annotation(
     Placement(transformation(origin = {368, 170}, extent = {{-10, 10}, {10, -10}}, rotation = 90)));
-  Modelica.Mechanics.Translational.Sensors.ForceSensor forceSensorGrdN_R annotation(
+  Modelica.Mechanics.Translational.Sensors.ForceSensor forceSensor1 annotation(
     Placement(transformation(origin = {368, 196}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
-  Modelica.Mechanics.Translational.Sources.Position positionGrdR annotation(
+  Modelica.Mechanics.Translational.Sources.Position position_2 annotation(
     Placement(transformation(origin = {356, 144}, extent = {{-6, -6}, {6, 6}})));
-  Components.DiscEdgeBottomTranslation discEdgeBtmL(rDisc = Wheel.diameter/2) annotation(
+  Components.DiscEdgeBottomTranslation discEdgeBtm(rDisc = Wheel.diameter/2) annotation(
     Placement(transformation(origin = {152, 300}, extent = {{10, -20}, {-10, 20}})));
-  Components.DiscEdgeBottomTranslation discEdgeBtmR(rDisc = Wheel1.diameter/2) annotation(
+  Components.DiscEdgeBottomTranslation discEdgeBtm1(rDisc = Wheel1.diameter/2) annotation(
     Placement(transformation(origin = {302, 300}, extent = {{10, -20}, {-10, 20}})));
-  Modelica.Mechanics.MultiBody.Sensors.AbsolutePosition absolutePositionWhlBtmL(resolveInFrame = Modelica.Mechanics.MultiBody.Types.ResolveInFrameA.world) annotation(
+  Modelica.Mechanics.MultiBody.Sensors.AbsolutePosition absolutePosition(resolveInFrame = Modelica.Mechanics.MultiBody.Types.ResolveInFrameA.world) annotation(
     Placement(transformation(origin = {136, 226}, extent = {{-6, -6}, {6, 6}}, rotation = -90)));
-  Modelica.Mechanics.MultiBody.Sensors.AbsolutePosition absolutePositionWhlBtmR(resolveInFrame = Modelica.Mechanics.MultiBody.Types.ResolveInFrameA.world) annotation(
+  Modelica.Mechanics.MultiBody.Sensors.AbsolutePosition absolutePosition1(resolveInFrame = Modelica.Mechanics.MultiBody.Types.ResolveInFrameA.world) annotation(
     Placement(transformation(origin = {290, 226}, extent = {{-6, -6}, {6, 6}}, rotation = -90)));
-  Modelica.Blocks.Tables.CombiTable2Ds Table_zGrd_WheelR(table = Glb_tblGrd) annotation(
+  Modelica.Blocks.Tables.CombiTable2Ds Table_zGrd_Wheel1(table = Glb_tblGrd) annotation(
     Placement(transformation(origin = {296, 168}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Mechanics.Translational.Sources.Position positionGrdL annotation(
+  Modelica.Mechanics.Translational.Sources.Position position2 annotation(
     Placement(transformation(origin = {186, 142}, extent = {{-6, -6}, {6, 6}})));
-  Modelica.Blocks.Tables.CombiTable2Ds Table_zGrd_WheelL(table = Glb_tblGrd) annotation(
+  Modelica.Blocks.Tables.CombiTable2Ds Table_zGrd_Wheel(table = Glb_tblGrd) annotation(
     Placement(transformation(origin = {130, 166}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Mechanics.MultiBody.Sensors.AbsoluteAngularVelocity w_absoluteL(resolveInFrame = Modelica.Mechanics.MultiBody.Types.ResolveInFrameA.frame_a) annotation(
+  Modelica.Mechanics.MultiBody.Sensors.AbsoluteAngularVelocity w_absolute(resolveInFrame = Modelica.Mechanics.MultiBody.Types.ResolveInFrameA.frame_a) annotation(
     Placement(transformation(origin = {132, 300}, extent = {{5, -5}, {-5, 5}})));
-  Components.WheelGroundTangentialForce FtWheelL(rDisc = Glb_WheelDiameter/2) annotation(
+  Components.WheelGroundTangentialForce FtWheel(rDisc = Glb_WheelDiameter/2) annotation(
     Placement(transformation(origin = {144, 272}, extent = {{-14, -4}, {14, 4}})));
-  Modelica.Mechanics.MultiBody.Sensors.AbsoluteAngularVelocity w_absoluteR(resolveInFrame = Modelica.Mechanics.MultiBody.Types.ResolveInFrameA.frame_a) annotation(
+  Modelica.Mechanics.MultiBody.Sensors.AbsoluteAngularVelocity w_absolute1(resolveInFrame = Modelica.Mechanics.MultiBody.Types.ResolveInFrameA.frame_a) annotation(
     Placement(transformation(origin = {321, 300}, extent = {{-5, -5}, {5, 5}})));
-  Components.WheelGroundTangentialForce FtWheelR(rDisc = Glb_WheelDiameter/2) annotation(
+  Components.WheelGroundTangentialForce FtWheel1(rDisc = Glb_WheelDiameter/2) annotation(
     Placement(transformation(origin = {324, 270}, extent = {{-14, -4}, {14, 4}})));
   Modelica.Mechanics.MultiBody.Sensors.AbsoluteSensor absoluteSensor_ctr(animation = false, resolveInFrame = Modelica.Mechanics.MultiBody.Types.ResolveInFrameA.world, get_r = true, get_v = true, get_a = true, get_angles = true) annotation(
     Placement(transformation(origin = {217, 321}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
@@ -250,39 +250,39 @@ model ProtoPanjan_006
     Placement(transformation(origin = {-180, 400}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
   Modelica.Blocks.Sources.Constant const_Noise8[3](k = {0, 0, 0}) annotation(
     Placement(transformation(origin = {-183, 413}, extent = {{3, -3}, {-3, 3}}, rotation = 90)));
-  Modelica.Mechanics.MultiBody.Parts.BodyCylinder Strut_1_1(color = {0, 255, 0}, diameter = Glb_StrutDiameter, length(displayUnit = "m"), r = {Glb_StrutLength, 0, 0}, r_0(each fixed = false), w_0_fixed = false) annotation(
+  Modelica.Mechanics.MultiBody.Parts.BodyCylinder Strut11(color = {0, 255, 0}, diameter = Glb_StrutDiameter, length(displayUnit = "m"), r = {Glb_StrutLength, 0, 0}, r_0(each fixed = false), w_0_fixed = false) annotation(
     Placement(transformation(origin = {620, 347}, extent = {{7, -7}, {-7, 7}}, rotation = 270)));
-  Modelica.Mechanics.MultiBody.Parts.BodyCylinder Rocket_1_1(color = {255, 0, 0}, diameter = Glb_RocketDiameter, r = {Glb_RocketLength, 0, 0}, r_0(each fixed = false), w_0_fixed = false) annotation(
+  Modelica.Mechanics.MultiBody.Parts.BodyCylinder Rocket11(color = {255, 0, 0}, diameter = Glb_RocketDiameter, r = {Glb_RocketLength, 0, 0}, r_0(each fixed = false), w_0_fixed = false) annotation(
     Placement(transformation(origin = {633, 367}, extent = {{7, -7}, {-7, 7}}, rotation = 180)));
-  Modelica.Mechanics.MultiBody.Parts.FixedRotation fixedRot_Strut_1_1(angle = 1*Glb_StrutPhaseAngle*180/Modelica.Constants.pi, n = {0, 1, 0}, r(each displayUnit = "m")) annotation(
+  Modelica.Mechanics.MultiBody.Parts.FixedRotation fixedRot_Strut1_1(angle = 1*Glb_StrutPhaseAngle*180/Modelica.Constants.pi, n = {0, 1, 0}, r(each displayUnit = "m")) annotation(
     Placement(transformation(origin = {620, 332}, extent = {{-4, -4}, {4, 4}}, rotation = 90)));
-  Modelica.Mechanics.MultiBody.Parts.FixedRotation fixedRot_Rocket_1_1(angle = -1*Glb_RocketMountAngle*180/Modelica.Constants.pi, n = {0, 1, 0}) annotation(
+  Modelica.Mechanics.MultiBody.Parts.FixedRotation fixedRot_Rocket11(angle = -1*Glb_RocketMountAngle*180/Modelica.Constants.pi, n = {0, 1, 0}) annotation(
     Placement(transformation(origin = {620, 363}, extent = {{-4, -4}, {4, 4}}, rotation = 90)));
-  Modelica.Mechanics.MultiBody.Parts.BodyCylinder Strut_1(color = {0, 255, 0}, diameter = Glb_StrutDiameter, length(displayUnit = "m"), r = {Glb_StrutLength, 0, 0}, r_0(each fixed = false), w_0_fixed = false) annotation(
+  Modelica.Mechanics.MultiBody.Parts.BodyCylinder Strut9(color = {0, 255, 0}, diameter = Glb_StrutDiameter, length(displayUnit = "m"), r = {Glb_StrutLength, 0, 0}, r_0(each fixed = false), w_0_fixed = false) annotation(
     Placement(transformation(origin = {660, 347}, extent = {{7, -7}, {-7, 7}}, rotation = 270)));
-  Modelica.Mechanics.MultiBody.Parts.BodyCylinder Rocket_1(color = {255, 0, 0}, diameter = Glb_RocketDiameter, r = {Glb_RocketLength, 0, 0}, r_0(each fixed = false), w_0_fixed = false) annotation(
+  Modelica.Mechanics.MultiBody.Parts.BodyCylinder Rocket9(color = {255, 0, 0}, diameter = Glb_RocketDiameter, r = {Glb_RocketLength, 0, 0}, r_0(each fixed = false), w_0_fixed = false) annotation(
     Placement(transformation(origin = {673, 367}, extent = {{7, -7}, {-7, 7}}, rotation = 180)));
   Modelica.Mechanics.MultiBody.Parts.FixedRotation fixedRot_Strut_1(angle = 0*Glb_StrutPhaseAngle*180/Modelica.Constants.pi, n = {0, 1, 0}, r(each displayUnit = "m")) annotation(
     Placement(transformation(origin = {660, 332}, extent = {{-4, -4}, {4, 4}}, rotation = 90)));
-  Modelica.Mechanics.MultiBody.Parts.FixedRotation fixedRot_Rocket_1(angle = -1*Glb_RocketMountAngle*180/Modelica.Constants.pi, n = {0, 1, 0}) annotation(
+  Modelica.Mechanics.MultiBody.Parts.FixedRotation fixedRot_Rocket9(angle = -1*Glb_RocketMountAngle*180/Modelica.Constants.pi, n = {0, 1, 0}) annotation(
     Placement(transformation(origin = {660, 363}, extent = {{-4, -4}, {4, 4}}, rotation = 90)));
-  Modelica.Mechanics.MultiBody.Forces.WorldForce fRocket_1(animation = Glb_AnimateRocketThrust, color = {255, 255, 255}, resolveInFrame = Modelica.Mechanics.MultiBody.Types.ResolveInFrameB.frame_b) annotation(
+  Modelica.Mechanics.MultiBody.Forces.WorldForce fRocket9(animation = Glb_AnimateRocketThrust, color = {255, 255, 255}, resolveInFrame = Modelica.Mechanics.MultiBody.Types.ResolveInFrameB.frame_b) annotation(
     Placement(transformation(origin = {680, 385}, extent = {{5, -5}, {-5, 5}}, rotation = 90)));
-  Modelica.Mechanics.MultiBody.Forces.WorldForce fRocket_1_1(animation = Glb_AnimateRocketThrust, color = {255, 255, 255}, resolveInFrame = Modelica.Mechanics.MultiBody.Types.ResolveInFrameB.frame_b) annotation(
+  Modelica.Mechanics.MultiBody.Forces.WorldForce fRocket11(animation = Glb_AnimateRocketThrust, color = {255, 255, 255}, resolveInFrame = Modelica.Mechanics.MultiBody.Types.ResolveInFrameB.frame_b) annotation(
     Placement(transformation(origin = {640, 385}, extent = {{5, -5}, {-5, 5}}, rotation = 90)));
-  Modelica.Mechanics.MultiBody.Parts.BodyCylinder Strut_1_2(color = {0, 255, 0}, diameter = Glb_StrutDiameter, length(displayUnit = "m"), r = {Glb_StrutLength, 0, 0}, r_0(each fixed = false), w_0_fixed = false) annotation(
+  Modelica.Mechanics.MultiBody.Parts.BodyCylinder Strut21(color = {0, 255, 0}, diameter = Glb_StrutDiameter, length(displayUnit = "m"), r = {Glb_StrutLength, 0, 0}, r_0(each fixed = false), w_0_fixed = false) annotation(
     Placement(transformation(origin = {580, 347}, extent = {{7, -7}, {-7, 7}}, rotation = 270)));
-  Modelica.Mechanics.MultiBody.Parts.BodyCylinder Rocket_1_2(color = {255, 0, 0}, diameter = Glb_RocketDiameter, r = {Glb_RocketLength, 0, 0}, r_0(each fixed = false), w_0_fixed = false) annotation(
+  Modelica.Mechanics.MultiBody.Parts.BodyCylinder Rocket21(color = {255, 0, 0}, diameter = Glb_RocketDiameter, r = {Glb_RocketLength, 0, 0}, r_0(each fixed = false), w_0_fixed = false) annotation(
     Placement(transformation(origin = {593, 367}, extent = {{7, -7}, {-7, 7}}, rotation = 180)));
-  Modelica.Mechanics.MultiBody.Parts.FixedRotation fixedRot_Strut_1_2(angle = 2*Glb_StrutPhaseAngle*180/Modelica.Constants.pi, n = {0, 1, 0}, r(each displayUnit = "m")) annotation(
+  Modelica.Mechanics.MultiBody.Parts.FixedRotation fixedRot_Strut2_1(angle = 2*Glb_StrutPhaseAngle*180/Modelica.Constants.pi, n = {0, 1, 0}, r(each displayUnit = "m")) annotation(
     Placement(transformation(origin = {580, 332}, extent = {{-4, -4}, {4, 4}}, rotation = 90)));
-  Modelica.Mechanics.MultiBody.Parts.FixedRotation fixedRot_Rocket_1_2(angle = -1*Glb_RocketMountAngle*180/Modelica.Constants.pi, n = {0, 1, 0}) annotation(
+  Modelica.Mechanics.MultiBody.Parts.FixedRotation fixedRot_Rocket21(angle = -1*Glb_RocketMountAngle*180/Modelica.Constants.pi, n = {0, 1, 0}) annotation(
     Placement(transformation(origin = {580, 363}, extent = {{-4, -4}, {4, 4}}, rotation = 90)));
   Modelica.Mechanics.MultiBody.Parts.BodyCylinder Strut31(color = {0, 255, 0}, diameter = Glb_StrutDiameter, length(displayUnit = "m"), r = {Glb_StrutLength, 0, 0}, r_0(each fixed = false), w_0_fixed = false) annotation(
     Placement(transformation(origin = {540, 347}, extent = {{7, -7}, {-7, 7}}, rotation = 270)));
   Modelica.Mechanics.MultiBody.Parts.BodyCylinder Rocket31(color = {255, 0, 0}, diameter = Glb_RocketDiameter, r = {Glb_RocketLength, 0, 0}, r_0(each fixed = false), w_0_fixed = false) annotation(
     Placement(transformation(origin = {553, 367}, extent = {{7, -7}, {-7, 7}}, rotation = 180)));
-  Modelica.Mechanics.MultiBody.Parts.FixedRotation fixedRot_Strut_1_3(angle = 3*Glb_StrutPhaseAngle*180/Modelica.Constants.pi, n = {0, 1, 0}, r(each displayUnit = "m")) annotation(
+  Modelica.Mechanics.MultiBody.Parts.FixedRotation fixedRot_Strut3_1(angle = 3*Glb_StrutPhaseAngle*180/Modelica.Constants.pi, n = {0, 1, 0}, r(each displayUnit = "m")) annotation(
     Placement(transformation(origin = {540, 332}, extent = {{-4, -4}, {4, 4}}, rotation = 90)));
   Modelica.Mechanics.MultiBody.Parts.FixedRotation fixedRot_Rocket31(angle = -1*Glb_RocketMountAngle*180/Modelica.Constants.pi, n = {0, 1, 0}) annotation(
     Placement(transformation(origin = {540, 363}, extent = {{-4, -4}, {4, 4}}, rotation = 90)));
@@ -294,13 +294,13 @@ model ProtoPanjan_006
     Placement(transformation(origin = {500, 332}, extent = {{-4, -4}, {4, 4}}, rotation = 90)));
   Modelica.Mechanics.MultiBody.Parts.FixedRotation fixedRot_Rocket41(angle = -1*Glb_RocketMountAngle*180/Modelica.Constants.pi, n = {0, 1, 0}) annotation(
     Placement(transformation(origin = {500, 363}, extent = {{-4, -4}, {4, 4}}, rotation = 90)));
-  Modelica.Mechanics.MultiBody.Forces.WorldForce fRocket_1_2(animation = Glb_AnimateRocketThrust, color = {255, 255, 255}, resolveInFrame = Modelica.Mechanics.MultiBody.Types.ResolveInFrameB.frame_b) annotation(
+  Modelica.Mechanics.MultiBody.Forces.WorldForce fRocket21(animation = Glb_AnimateRocketThrust, color = {255, 255, 255}, resolveInFrame = Modelica.Mechanics.MultiBody.Types.ResolveInFrameB.frame_b) annotation(
     Placement(transformation(origin = {600, 385}, extent = {{5, -5}, {-5, 5}}, rotation = 90)));
-  Modelica.Mechanics.MultiBody.Forces.WorldForce fRocket_1_3(animation = Glb_AnimateRocketThrust, color = {255, 255, 255}, resolveInFrame = Modelica.Mechanics.MultiBody.Types.ResolveInFrameB.frame_b) annotation(
+  Modelica.Mechanics.MultiBody.Forces.WorldForce fRocket31(animation = Glb_AnimateRocketThrust, color = {255, 255, 255}, resolveInFrame = Modelica.Mechanics.MultiBody.Types.ResolveInFrameB.frame_b) annotation(
     Placement(transformation(origin = {560, 385}, extent = {{5, -5}, {-5, 5}}, rotation = 90)));
   Modelica.Mechanics.MultiBody.Forces.WorldForce fRocket41(animation = Glb_AnimateRocketThrust, color = {255, 255, 255}, resolveInFrame = Modelica.Mechanics.MultiBody.Types.ResolveInFrameB.frame_b) annotation(
     Placement(transformation(origin = {520, 385}, extent = {{5, -5}, {-5, 5}}, rotation = 90)));
-  Modelica.Blocks.Math.Add add_1[3] annotation(
+  Modelica.Blocks.Math.Add add9[3] annotation(
     Placement(transformation(origin = {680, 400}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
   Modelica.Blocks.Sources.Constant const_Noise9[3](k = {0, 0, 0}) annotation(
     Placement(transformation(origin = {677, 413}, extent = {{3, -3}, {-3, 3}}, rotation = 90)));
@@ -379,87 +379,87 @@ model ProtoPanjan_006
   Modelica.Blocks.Sources.Ramp ramp_RocketThrustNominal[3](height = {Glb_RocketThrustNominal, 0, 0}, each duration = 1, offset = {0, 0, 0}, startTime = {2, 0, 0}) annotation(
     Placement(transformation(origin = {143, 469}, extent = {{-7, -7}, {7, 7}})));
 equation
-  connect(FuselageL.frame_b, WheelL.frame_a) annotation(
+  connect(Fuselage.frame_b, Wheel.frame_a) annotation(
     Line(points = {{192, 300}, {188, 300}}, color = {95, 95, 95}));
-  connect(FuselageR.frame_a, WheelR.frame_b) annotation(
+  connect(Fuselage1.frame_a, Wheel1.frame_b) annotation(
     Line(points = {{258, 300}, {266, 300}}, color = {95, 95, 95}));
-  connect(FuselageL.frame_a, FuselageR.frame_b) annotation(
+  connect(Fuselage.frame_a, Fuselage1.frame_b) annotation(
     Line(points = {{212, 300}, {238, 300}}, color = {95, 95, 95}));
   connect(cutForce.frame_a, bodyCenter.frame_a) annotation(
     Line(points = {{230, 288}, {230, 310}}, color = {95, 95, 95}));
-  connect(FuselageL.frame_a, bodyCenter.frame_a) annotation(
+  connect(Fuselage.frame_a, bodyCenter.frame_a) annotation(
     Line(points = {{212, 300}, {212, 305}, {230, 305}, {230, 310}}, color = {95, 95, 95}));
-  connect(elastoGapWhlL.flange_b, forceSensorGrdN_L.flange_a) annotation(
+  connect(elastoGap.flange_b, forceSensor.flange_a) annotation(
     Line(points = {{198, 184}, {198, 195}}, color = {0, 127, 0}));
-  connect(positionWhlBtmL.flange, forceSensorGrdN_L.flange_b) annotation(
+  connect(position.flange, forceSensor.flange_b) annotation(
     Line(points = {{188, 208}, {198, 208}, {198, 205}}, color = {0, 127, 0}));
-  connect(const[1].y, forceNgrdL.force[1]) annotation(
+  connect(const[1].y, force.force[1]) annotation(
     Line(points = {{198, 229}, {208.4, 229}, {208.4, 254}, {208, 254}}, color = {0, 0, 127}, thickness = 0.5));
-  connect(const[2].y, forceNgrdL.force[2]) annotation(
+  connect(const[2].y, force.force[2]) annotation(
     Line(points = {{198, 229}, {208.4, 229}, {208.4, 254}, {208, 254}}, color = {0, 0, 127}, thickness = 0.5));
-  connect(forceSensorGrdN_L.f, forceNgrdL.force[3]) annotation(
+  connect(forceSensor.f, force.force[3]) annotation(
     Line(points = {{203.5, 196}, {208, 196}, {208, 254}}, color = {0, 0, 127}));
-  connect(const2[1].y, forceNgrdR.force[1]) annotation(
+  connect(const2[1].y, force1.force[1]) annotation(
     Line(points = {{375, 218}, {384.4, 218}, {384.4, 254}, {384, 254}}, color = {0, 0, 127}, thickness = 0.5));
-  connect(const2[2].y, forceNgrdR.force[2]) annotation(
+  connect(const2[2].y, force1.force[2]) annotation(
     Line(points = {{375, 218}, {384.4, 218}, {384.4, 254}, {384, 254}}, color = {0, 0, 127}, thickness = 0.5));
-  connect(elastoGapWhlR.flange_b, forceSensorGrdN_R.flange_a) annotation(
+  connect(elastoGap1.flange_b, forceSensor1.flange_a) annotation(
     Line(points = {{368, 180}, {368, 191}}, color = {0, 127, 0}));
-  connect(positionWhlBtmR.flange, forceSensorGrdN_R.flange_b) annotation(
+  connect(position1.flange, forceSensor1.flange_b) annotation(
     Line(points = {{358, 207}, {368, 207}, {368, 201}}, color = {0, 127, 0}));
-  connect(forceSensorGrdN_R.f, forceNgrdR.force[3]) annotation(
+  connect(forceSensor1.f, force1.force[3]) annotation(
     Line(points = {{373.5, 192}, {373.5, 191.5}, {383.5, 191.5}, {383.5, 254}, {384, 254}}, color = {0, 0, 127}));
-  connect(positionGrdR.flange, elastoGapWhlR.flange_a) annotation(
+  connect(position_2.flange, elastoGap1.flange_a) annotation(
     Line(points = {{362, 144}, {368, 144}, {368, 160}}, color = {0, 127, 0}));
-  connect(WheelL.frame_b, discEdgeBtmL.frame_a) annotation(
+  connect(Wheel.frame_b, discEdgeBtm.frame_a) annotation(
     Line(points = {{168, 300}, {152, 300}}, color = {95, 95, 95}));
-  connect(forceNgrdL.frame_b, discEdgeBtmL.frame_btm) annotation(
+  connect(force.frame_b, discEdgeBtm.frame_btm) annotation(
     Line(points = {{208, 276}, {208, 280}, {152, 280}}, color = {95, 95, 95}));
-  connect(WheelR.frame_a, discEdgeBtmR.frame_a) annotation(
+  connect(Wheel1.frame_a, discEdgeBtm1.frame_a) annotation(
     Line(points = {{286, 300}, {302, 300}}, color = {95, 95, 95}));
-  connect(forceNgrdR.frame_b, discEdgeBtmR.frame_btm) annotation(
+  connect(force1.frame_b, discEdgeBtm1.frame_btm) annotation(
     Line(points = {{384, 276}, {384, 280}, {302, 280}}, color = {95, 95, 95}));
-  connect(discEdgeBtmL.frame_btm, absolutePositionWhlBtmL.frame_a) annotation(
+  connect(discEdgeBtm.frame_btm, absolutePosition.frame_a) annotation(
     Line(points = {{152, 280}, {152, 254}, {136, 254}, {136, 232}}, color = {95, 95, 95}));
-  connect(discEdgeBtmR.frame_btm, absolutePositionWhlBtmR.frame_a) annotation(
+  connect(discEdgeBtm1.frame_btm, absolutePosition1.frame_a) annotation(
     Line(points = {{302, 280}, {302, 254}, {290, 254}, {290, 232}}, color = {95, 95, 95}));
-  connect(absolutePositionWhlBtmR.r[1], Table_zGrd_WheelR.u1) annotation(
+  connect(absolutePosition1.r[1], Table_zGrd_Wheel1.u1) annotation(
     Line(points = {{290, 219}, {290, 202.2}, {302, 202.2}, {302, 180}}, color = {0, 0, 127}));
-  connect(absolutePositionWhlBtmR.r[2], Table_zGrd_WheelR.u2) annotation(
+  connect(absolutePosition1.r[2], Table_zGrd_Wheel1.u2) annotation(
     Line(points = {{290, 219}, {290, 180}}, color = {0, 0, 127}));
-  connect(positionGrdR.s_ref, Table_zGrd_WheelR.y) annotation(
+  connect(position_2.s_ref, Table_zGrd_Wheel1.y) annotation(
     Line(points = {{348.8, 144}, {295.8, 144}, {295.8, 157}}, color = {0, 0, 127}));
-  connect(absolutePositionWhlBtmL.r[3], positionWhlBtmL.s_ref) annotation(
+  connect(absolutePosition.r[3], position.s_ref) annotation(
     Line(points = {{136, 219.4}, {136, 208.4}, {175, 208.4}}, color = {0, 0, 127}));
-  connect(absolutePositionWhlBtmR.r[3], positionWhlBtmR.s_ref) annotation(
+  connect(absolutePosition1.r[3], position1.s_ref) annotation(
     Line(points = {{290, 219}, {290, 207}, {345, 207}}, color = {0, 0, 127}));
-  connect(positionGrdL.flange, elastoGapWhlL.flange_a) annotation(
+  connect(position2.flange, elastoGap.flange_a) annotation(
     Line(points = {{192, 142}, {198, 142}, {198, 164}}, color = {0, 127, 0}));
-  connect(absolutePositionWhlBtmL.r[1], Table_zGrd_WheelL.u1) annotation(
+  connect(absolutePosition.r[1], Table_zGrd_Wheel.u1) annotation(
     Line(points = {{136, 219.4}, {136, 178.4}}, color = {0, 0, 127}));
-  connect(absolutePositionWhlBtmL.r[2], Table_zGrd_WheelL.u2) annotation(
+  connect(absolutePosition.r[2], Table_zGrd_Wheel.u2) annotation(
     Line(points = {{136, 219.4}, {136, 214.4}, {124, 214.4}, {124, 178.4}}, color = {0, 0, 127}));
-  connect(Table_zGrd_WheelL.y, positionGrdL.s_ref) annotation(
+  connect(Table_zGrd_Wheel.y, position2.s_ref) annotation(
     Line(points = {{130, 155}, {130, 142}, {179, 142}}, color = {0, 0, 127}));
-  connect(discEdgeBtmL.frame_a, w_absoluteL.frame_a) annotation(
+  connect(discEdgeBtm.frame_a, w_absolute.frame_a) annotation(
     Line(points = {{152, 300}, {137, 300}}, color = {95, 95, 95}));
-  connect(FtWheelL.frame_b, discEdgeBtmL.frame_btm) annotation(
+  connect(FtWheel.frame_b, discEdgeBtm.frame_btm) annotation(
     Line(points = {{144, 270}, {144, 280}, {152, 280}}, color = {95, 95, 95}));
-  connect(forceSensorGrdN_L.f, FtWheelL.u_Fn) annotation(
+  connect(forceSensor.f, FtWheel.u_Fn) annotation(
     Line(points = {{203.5, 196}, {208, 196}, {208, 246}, {144, 246}, {144, 267}}, color = {0, 0, 127}));
-  connect(discEdgeBtmR.frame_a, w_absoluteR.frame_a) annotation(
+  connect(discEdgeBtm1.frame_a, w_absolute1.frame_a) annotation(
     Line(points = {{302, 300}, {316, 300}}, color = {95, 95, 95}));
-  connect(discEdgeBtmR.frame_btm, FtWheelR.frame_b) annotation(
+  connect(discEdgeBtm1.frame_btm, FtWheel1.frame_b) annotation(
     Line(points = {{302, 280}, {324, 280}, {324, 268}}, color = {95, 95, 95}));
-  connect(forceSensorGrdN_R.f, FtWheelR.u_Fn) annotation(
+  connect(forceSensor1.f, FtWheel1.u_Fn) annotation(
     Line(points = {{373.5, 192}, {384, 192}, {384, 243}, {324, 243}, {324, 265}}, color = {0, 0, 127}));
   connect(bodyCenter.frame_a, absoluteSensor_ctr.frame_a) annotation(
     Line(points = {{230, 310}, {217, 310}, {217, 316}}, color = {95, 95, 95}));
   connect(bodyCenter.frame_a, absoluteAngles_ctr.frame_a) annotation(
     Line(points = {{230, 310}, {205, 310}, {205, 316}}, color = {95, 95, 95}));
-  connect(w_absoluteL.w[2], FtWheelL.u_wRoll) annotation(
+  connect(w_absolute.w[2], FtWheel.u_wRoll) annotation(
     Line(points = {{126.5, 300}, {126.5, 288}, {130.5, 288}, {130.5, 276}}, color = {0, 0, 127}));
-  connect(w_absoluteR.w[2], FtWheelR.u_wRoll) annotation(
+  connect(w_absolute1.w[2], FtWheel1.u_wRoll) annotation(
     Line(points = {{326.5, 300}, {326.5, 286}, {310.5, 286}, {310.5, 274}}, color = {0, 0, 127}));
   connect(world.frame_b, markerXaxis.frame_a) annotation(
     Line(points = {{26, 25}, {38, 25}, {38, 61}, {50, 61}}, color = {95, 95, 95}));
@@ -469,7 +469,7 @@ equation
     Line(points = {{26, 25}, {38, 25}, {38, 18}, {50, 18}}, color = {95, 95, 95}));
   connect(VisTerrainTbl.frame_a, world.frame_b) annotation(
     Line(points = {{36, 90}, {30, 90}, {30, 25}, {26, 25}}, color = {95, 95, 95}));
-  connect(FuselageL.frame_a, revolute.frame_a) annotation(
+  connect(Fuselage.frame_a, revolute.frame_a) annotation(
     Line(points = {{212, 300}, {224, 300}, {224, 340}}, color = {95, 95, 95}));
   connect(revolute.frame_b, bodyCenterNoRot.frame_a) annotation(
     Line(points = {{236, 340}, {244, 340}, {244, 354}}, color = {95, 95, 95}));
@@ -477,7 +477,7 @@ equation
     Line(points = {{244, 354}, {229, 354}, {229, 358}}, color = {95, 95, 95}));
   connect(bodyCenterNoRot.frame_a, absoluteAngles_ctrNoRot.frame_a) annotation(
     Line(points = {{244, 354}, {219, 354}, {219, 358}}, color = {95, 95, 95}));
-  connect(fixedRot_Strut1.frame_a, WheelL.frame_b) annotation(
+  connect(fixedRot_Strut1.frame_a, Wheel.frame_b) annotation(
     Line(points = {{80, 328}, {168, 328}, {168, 300}}, color = {95, 95, 95}));
   connect(fixedRot_Strut1.frame_b, Strut1.frame_a) annotation(
     Line(points = {{80, 336}, {80, 340}}, color = {95, 95, 95}));
@@ -491,7 +491,7 @@ equation
     Line(points = {{120, 359}, {120, 354}}, color = {95, 95, 95}));
   connect(Rocket.frame_a, fixedRot_Rocket.frame_b) annotation(
     Line(points = {{126, 367}, {120, 367}}, color = {95, 95, 95}));
-  connect(fixedRot_Strut.frame_a, WheelL.frame_b) annotation(
+  connect(fixedRot_Strut.frame_a, Wheel.frame_b) annotation(
     Line(points = {{120, 328}, {168, 328}, {168, 300}}, color = {95, 95, 95}));
   connect(fRocket.frame_b, Rocket.frame_b) annotation(
     Line(points = {{140, 380}, {140, 367}}, color = {95, 95, 95}));
@@ -503,13 +503,13 @@ equation
     Line(points = {{40, 359}, {40, 354}}, color = {95, 95, 95}));
   connect(Rocket2.frame_a, fixedRot_Rocket2.frame_b) annotation(
     Line(points = {{46, 367}, {40, 367}}, color = {95, 95, 95}));
-  connect(fixedRot_Strut2.frame_a, WheelL.frame_b) annotation(
+  connect(fixedRot_Strut2.frame_a, Wheel.frame_b) annotation(
     Line(points = {{40, 328}, {168, 328}, {168, 300}}, color = {95, 95, 95}));
   connect(fixedRot_Strut3.frame_b, Strut3.frame_a) annotation(
     Line(points = {{0, 336}, {0, 340}}, color = {95, 95, 95}));
   connect(fixedRot_Rocket3.frame_a, Strut3.frame_b) annotation(
     Line(points = {{0, 359}, {0, 354}}, color = {95, 95, 95}));
-  connect(fixedRot_Strut3.frame_a, WheelL.frame_b) annotation(
+  connect(fixedRot_Strut3.frame_a, Wheel.frame_b) annotation(
     Line(points = {{0, 328}, {168, 328}, {168, 300}}, color = {95, 95, 95}));
   connect(fixedRot_Strut4.frame_b, Strut4.frame_a) annotation(
     Line(points = {{-40, 336}, {-40, 340}}, color = {95, 95, 95}));
@@ -517,7 +517,7 @@ equation
     Line(points = {{-40, 359}, {-40, 354}}, color = {95, 95, 95}));
   connect(Rocket4.frame_a, fixedRot_Rocket4.frame_b) annotation(
     Line(points = {{-34, 367}, {-40, 367}}, color = {95, 95, 95}));
-  connect(fixedRot_Strut4.frame_a, WheelL.frame_b) annotation(
+  connect(fixedRot_Strut4.frame_a, Wheel.frame_b) annotation(
     Line(points = {{-40, 328}, {168, 328}, {168, 300}}, color = {95, 95, 95}));
   connect(fRocket2.frame_b, Rocket2.frame_b) annotation(
     Line(points = {{60, 380}, {60, 368}}, color = {95, 95, 95}));
@@ -581,9 +581,9 @@ equation
     Line(points = {{-103, 406}, {-103, 410}}, color = {0, 0, 127}, thickness = 0.5));
   connect(add6.y, fRocket6.force) annotation(
     Line(points = {{-100, 394.5}, {-100, 392.5}}, color = {0, 0, 127}, thickness = 0.5));
-  connect(fixedRot_Strut5.frame_a, WheelL.frame_b) annotation(
+  connect(fixedRot_Strut5.frame_a, Wheel.frame_b) annotation(
     Line(points = {{-80, 328}, {168, 328}, {168, 300}}, color = {95, 95, 95}));
-  connect(fixedRot_Strut6.frame_a, WheelL.frame_b) annotation(
+  connect(fixedRot_Strut6.frame_a, Wheel.frame_b) annotation(
     Line(points = {{-120, 328}, {168, 328}, {168, 300}}, color = {95, 95, 95}));
   connect(gain.y, add5.u1) annotation(
     Line(points = {{160, 436}, {-57, 436}, {-57, 406}}, color = {0, 0, 127}, thickness = 0.5));
@@ -613,37 +613,37 @@ equation
     Line(points = {{-183, 406}, {-183, 410}}, color = {0, 0, 127}, thickness = 0.5));
   connect(add8.y, fRocket8.force) annotation(
     Line(points = {{-180, 394.5}, {-180, 392.5}}, color = {0, 0, 127}, thickness = 0.5));
-  connect(fixedRot_Strut7.frame_a, WheelL.frame_b) annotation(
+  connect(fixedRot_Strut7.frame_a, Wheel.frame_b) annotation(
     Line(points = {{-160, 328}, {168, 328}, {168, 300}}, color = {95, 95, 95}));
-  connect(fixedRot_Strut8.frame_a, WheelL.frame_b) annotation(
+  connect(fixedRot_Strut8.frame_a, Wheel.frame_b) annotation(
     Line(points = {{-200, 328}, {168, 328}, {168, 300}}, color = {95, 95, 95}));
   connect(gain.y, add7.u1) annotation(
     Line(points = {{160, 436}, {-137, 436}, {-137, 406}}, color = {0, 0, 127}, thickness = 0.5));
   connect(gain.y, add8.u1) annotation(
     Line(points = {{160, 436}, {-177, 436}, {-177, 406}}, color = {0, 0, 127}, thickness = 0.5));
-  connect(fixedRot_Strut_1_1.frame_b, Strut_1_1.frame_a) annotation(
+  connect(fixedRot_Strut1_1.frame_b, Strut11.frame_a) annotation(
     Line(points = {{620, 336}, {620, 340}}, color = {95, 95, 95}));
-  connect(fixedRot_Rocket_1_1.frame_a, Strut_1_1.frame_b) annotation(
+  connect(fixedRot_Rocket11.frame_a, Strut11.frame_b) annotation(
     Line(points = {{620, 359}, {620, 354}}, color = {95, 95, 95}));
-  connect(Rocket_1_1.frame_a, fixedRot_Rocket_1_1.frame_b) annotation(
+  connect(Rocket11.frame_a, fixedRot_Rocket11.frame_b) annotation(
     Line(points = {{626, 367}, {620, 367}}, color = {95, 95, 95}));
-  connect(fixedRot_Strut_1.frame_b, Strut_1.frame_a) annotation(
+  connect(fixedRot_Strut_1.frame_b, Strut9.frame_a) annotation(
     Line(points = {{660, 336}, {660, 340}}, color = {95, 95, 95}));
-  connect(fixedRot_Rocket_1.frame_a, Strut_1.frame_b) annotation(
+  connect(fixedRot_Rocket9.frame_a, Strut9.frame_b) annotation(
     Line(points = {{660, 359}, {660, 354}}, color = {95, 95, 95}));
-  connect(Rocket_1.frame_a, fixedRot_Rocket_1.frame_b) annotation(
+  connect(Rocket9.frame_a, fixedRot_Rocket9.frame_b) annotation(
     Line(points = {{666, 367}, {660, 367}}, color = {95, 95, 95}));
-  connect(fRocket_1.frame_b, Rocket_1.frame_b) annotation(
+  connect(fRocket9.frame_b, Rocket9.frame_b) annotation(
     Line(points = {{680, 380}, {680, 367}}, color = {95, 95, 95}));
-  connect(Rocket_1_1.frame_b, fRocket_1_1.frame_b) annotation(
+  connect(Rocket11.frame_b, fRocket11.frame_b) annotation(
     Line(points = {{640, 367}, {640, 379}}, color = {95, 95, 95}));
-  connect(fixedRot_Strut_1_2.frame_b, Strut_1_2.frame_a) annotation(
+  connect(fixedRot_Strut2_1.frame_b, Strut21.frame_a) annotation(
     Line(points = {{580, 336}, {580, 340}}, color = {95, 95, 95}));
-  connect(fixedRot_Rocket_1_2.frame_a, Strut_1_2.frame_b) annotation(
+  connect(fixedRot_Rocket21.frame_a, Strut21.frame_b) annotation(
     Line(points = {{580, 359}, {580, 354}}, color = {95, 95, 95}));
-  connect(Rocket_1_2.frame_a, fixedRot_Rocket_1_2.frame_b) annotation(
+  connect(Rocket21.frame_a, fixedRot_Rocket21.frame_b) annotation(
     Line(points = {{586, 367}, {580, 367}}, color = {95, 95, 95}));
-  connect(fixedRot_Strut_1_3.frame_b, Strut31.frame_a) annotation(
+  connect(fixedRot_Strut3_1.frame_b, Strut31.frame_a) annotation(
     Line(points = {{540, 336}, {540, 340}}, color = {95, 95, 95}));
   connect(fixedRot_Rocket31.frame_a, Strut31.frame_b) annotation(
     Line(points = {{540, 359}, {540, 354}}, color = {95, 95, 95}));
@@ -653,29 +653,29 @@ equation
     Line(points = {{500, 359}, {500, 354}}, color = {95, 95, 95}));
   connect(Rocket41.frame_a, fixedRot_Rocket41.frame_b) annotation(
     Line(points = {{506, 367}, {500, 367}}, color = {95, 95, 95}));
-  connect(fRocket_1_2.frame_b, Rocket_1_2.frame_b) annotation(
+  connect(fRocket21.frame_b, Rocket21.frame_b) annotation(
     Line(points = {{600, 380}, {600, 368}}, color = {95, 95, 95}));
-  connect(fRocket_1_3.frame_b, Rocket31.frame_b) annotation(
+  connect(fRocket31.frame_b, Rocket31.frame_b) annotation(
     Line(points = {{560, 380}, {560, 367}}, color = {95, 95, 95}));
   connect(Rocket41.frame_b, fRocket41.frame_b) annotation(
     Line(points = {{520, 367}, {520, 379}}, color = {95, 95, 95}));
   connect(Rocket31.frame_a, fixedRot_Rocket31.frame_b) annotation(
     Line(points = {{546, 367}, {540, 367}}, color = {95, 95, 95}));
-  connect(add_1.u2, const_Noise9.y) annotation(
+  connect(add9.u2, const_Noise9.y) annotation(
     Line(points = {{677, 406}, {677, 410}}, color = {0, 0, 127}, thickness = 0.5));
-  connect(add_1.y, fRocket_1.force) annotation(
+  connect(add9.y, fRocket9.force) annotation(
     Line(points = {{680, 394.5}, {680, 392.5}}, color = {0, 0, 127}, thickness = 0.5));
   connect(const_Noise11.y, add11.u2) annotation(
     Line(points = {{637, 409.7}, {637, 406}}, color = {0, 0, 127}, thickness = 0.5));
-  connect(add11.y, fRocket_1_1.force) annotation(
+  connect(add11.y, fRocket11.force) annotation(
     Line(points = {{640, 394.5}, {640, 392}}, color = {0, 0, 127}, thickness = 0.5));
   connect(add21.u2, const_Noise21.y) annotation(
     Line(points = {{597, 406}, {597, 410}}, color = {0, 0, 127}, thickness = 0.5));
-  connect(add21.y, fRocket_1_2.force) annotation(
+  connect(add21.y, fRocket21.force) annotation(
     Line(points = {{600, 394.5}, {600, 392}}, color = {0, 0, 127}, thickness = 0.5));
   connect(add31.u2, const_Noise31.y) annotation(
     Line(points = {{557, 406}, {557, 410}}, color = {0, 0, 127}, thickness = 0.5));
-  connect(add31.y, fRocket_1_3.force) annotation(
+  connect(add31.y, fRocket31.force) annotation(
     Line(points = {{560, 394.5}, {560, 392}}, color = {0, 0, 127}, thickness = 0.5));
   connect(add41.u2, const_Noise41.y) annotation(
     Line(points = {{517, 406}, {517, 410}}, color = {0, 0, 127}, thickness = 0.5));
@@ -729,21 +729,21 @@ equation
     Line(points = {{357, 406}, {357, 410}}, color = {0, 0, 127}, thickness = 0.5));
   connect(add81.y, fRocket81.force) annotation(
     Line(points = {{360, 394.5}, {360, 392.5}}, color = {0, 0, 127}, thickness = 0.5));
-  connect(fixedRot_Strut_1_8.frame_a, WheelR.frame_a) annotation(
+  connect(fixedRot_Strut_1_8.frame_a, Wheel1.frame_a) annotation(
     Line(points = {{340, 328}, {286, 328}, {286, 300}}, color = {95, 95, 95}));
-  connect(fixedRot_Strut_1_7.frame_a, WheelR.frame_a) annotation(
+  connect(fixedRot_Strut_1_7.frame_a, Wheel1.frame_a) annotation(
     Line(points = {{380, 328}, {286, 328}, {286, 300}}, color = {95, 95, 95}));
-  connect(fixedRot_Strut_1_6.frame_a, WheelR.frame_a) annotation(
+  connect(fixedRot_Strut_1_6.frame_a, Wheel1.frame_a) annotation(
     Line(points = {{420, 328}, {286, 328}, {286, 300}}, color = {95, 95, 95}));
-  connect(fixedRot_Strut_1_5.frame_a, WheelR.frame_a) annotation(
+  connect(fixedRot_Strut_1_5.frame_a, Wheel1.frame_a) annotation(
     Line(points = {{460, 328}, {286, 328}, {286, 300}}, color = {95, 95, 95}));
-  connect(fixedRot_Strut_1_4.frame_a, WheelR.frame_a) annotation(
+  connect(fixedRot_Strut_1_4.frame_a, Wheel1.frame_a) annotation(
     Line(points = {{500, 328}, {286, 328}, {286, 300}}, color = {95, 95, 95}));
-  connect(fixedRot_Strut_1_3.frame_a, WheelR.frame_a) annotation(
+  connect(fixedRot_Strut3_1.frame_a, Wheel1.frame_a) annotation(
     Line(points = {{540, 328}, {286, 328}, {286, 300}}, color = {95, 95, 95}));
-  connect(fixedRot_Strut_1_2.frame_a, WheelR.frame_a) annotation(
+  connect(fixedRot_Strut2_1.frame_a, Wheel1.frame_a) annotation(
     Line(points = {{580, 328}, {286, 328}, {286, 300}}, color = {95, 95, 95}));
-  connect(fixedRot_Strut_1_1.frame_a, WheelR.frame_a) annotation(
+  connect(fixedRot_Strut1_1.frame_a, Wheel1.frame_a) annotation(
     Line(points = {{620, 328}, {286, 328}, {286, 300}}, color = {95, 95, 95}));
   connect(gain.y, add81.u1) annotation(
     Line(points = {{160, 436}, {363, 436}, {363, 406}}, color = {0, 0, 127}, thickness = 0.5));
@@ -759,11 +759,11 @@ equation
     Line(points = {{160, 436}, {563, 436}, {563, 406}}, color = {0, 0, 127}, thickness = 0.5));
   connect(gain.y, add21.u1) annotation(
     Line(points = {{160, 436}, {603, 436}, {603, 406}}, color = {0, 0, 127}, thickness = 0.5));
-  connect(fixedRot_Strut_1.frame_a, WheelR.frame_a) annotation(
+  connect(fixedRot_Strut_1.frame_a, Wheel1.frame_a) annotation(
     Line(points = {{660, 328}, {286, 328}, {286, 300}}, color = {95, 95, 95}));
   connect(gain.y, add11.u1) annotation(
     Line(points = {{160, 436}, {643, 436}, {643, 406}}, color = {0, 0, 127}, thickness = 0.5));
-  connect(gain.y, add_1.u1) annotation(
+  connect(gain.y, add9.u1) annotation(
     Line(points = {{160, 436}, {683, 436}, {683, 406}}, color = {0, 0, 127}, thickness = 0.5));
   connect(ramp_RocketThrustNominal.y, gain.u) annotation(
     Line(points = {{151, 469}, {160, 469}, {160, 442}}, color = {0, 0, 127}, thickness = 0.5));
