@@ -285,6 +285,6 @@ equation
     Diagram(coordinateSystem(extent = {{-40, 380}, {500, 0}})),
     version = "",
     uses(Modelica(version = "4.1.0")),
-    experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-09, Interval = 0.02),
+    experiment(StartTime = 0, StopTime = 25, Tolerance = 1e-06, Interval = 0.02),
     __OpenModelica_simulationFlags(lv = "LOG_STDOUT,LOG_ASSERT,LOG_STATS", s = "dassl", variableFilter = ".*"));
 end ProtoPanjan_005;
