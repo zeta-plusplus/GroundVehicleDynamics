@@ -1,58 +1,53 @@
 within GroundVehicleDynamics.Examples.Projects.Panjan;
 
-model ProtoPanjan_007
+model ProtoPanjan_008
+
   extends Modelica.Icons.Example;
   /****************************************/
   parameter Boolean Glb_AnimateRocketThrust = true;
   //
-  parameter Modelica.Units.SI.Force Glb_RocketThrustNominal = 1000;
+  parameter Modelica.Units.SI.Force Glb_RocketThrustNominal = 170;
   parameter Modelica.Units.SI.Length Glb_WheelDiameter = 3;
   parameter Modelica.Units.SI.Length Glb_WheelLength = 0.1;
   parameter Modelica.Units.SI.Length Glb_RocketLength = 0.6;
   parameter Modelica.Units.SI.Length Glb_RocketDiameter = 0.1;
   parameter Modelica.Units.SI.Angle Glb_RocketMountAngle = 1.9198621771937625;
   parameter Modelica.Units.SI.Angle Glb_StrutPhaseAngle = 0.6981317007977318;
-  parameter Modelica.Units.SI.Length Glb_FuselageDiameter = 1;
+  parameter Modelica.Units.SI.Length Glb_FuselageDiameter = 1.5;
+  parameter Modelica.Units.SI.Mass Glb_FuselageMass= 3000 "total mass of fuselage";
+  parameter Modelica.Units.SI.Density Glb_FuselageDensity=0.5*Glb_FuselageMass/(Modelica.Constants.pi/4*Glb_FuselageDiameter^2*Glb_FuselageLength);
   parameter Modelica.Units.SI.Length Glb_StrutLength = Glb_WheelDiameter/2;
   parameter Modelica.Units.SI.Length Glb_StrutDiameter = 0.1;
   parameter Modelica.Units.SI.Length Glb_FuselageLength = 1;
   //
-  parameter Modelica.Units.SI.Length Glb_z0_WhlBtm_Rel = 0.1;
+  parameter Modelica.Units.SI.Length Glb_z0_WhlBtm_Rel = 0;
   parameter Modelica.Units.SI.Length Glb_x0_Ctr = 0;
   parameter Modelica.Units.SI.Length Glb_y0_Ctr = 0;
-  parameter Modelica.Units.SI.Length Glb_z0_Ctr = Glb_WheelDiameter/2 + Glb_grdZMax + Glb_z0_WhlBtm_Rel;
+  parameter Modelica.Units.SI.Length Glb_z0_Ctr = Glb_WheelDiameter/2 + Glb_z0_WhlBtm_Rel;
   parameter Modelica.Units.SI.AngularVelocity Glb_w_0_x = 0;
-  parameter Modelica.Units.SI.AngularVelocity Glb_w_0_y = 10;
+  parameter Modelica.Units.SI.AngularVelocity Glb_w_0_y = 0;
   parameter Modelica.Units.SI.AngularVelocity Glb_w_0_z = 0;
   //
-  parameter Modelica.Units.SI.TranslationalSpringConstant Glb_c_GrdCntct = 1e7;
-  parameter Modelica.Units.SI.TranslationalDampingConstant Glb_d_GrdCntct = 1e6;
+  parameter Modelica.Units.SI.TranslationalSpringConstant Glb_c_GrdCntct = 1e6;
+  parameter Modelica.Units.SI.TranslationalDampingConstant Glb_d_GrdCntct = 1e5;
   parameter Modelica.Units.SI.Length Glb_s_rel0_GrdCntct = 1e-5;
   parameter Modelica.Units.SI.TranslationalDampingConstant Glb_WheelcSlip = 100;
   parameter Modelica.Units.SI.TranslationalDampingConstant Glb_WheelcSide = 5000;
   /****************************************/
-  //parameter Real Glb_tblGrd[5, 5] = [0, -20, -0.9, -0.89, 100; -20, 0, 0, 0, 0; 1, 0, 0, 0, 0; 2, 0, 0, 0, 0; 100, 0, 0, 0, 0];
-  parameter Real Glb_tblGrd[5, 14] = [0, -30, -5, -0.01, 0, 1.99, 2, 3.99, 4, 5.99, 6, 7.99, 8, 40; -20, 1, 1, 1, 0.8, 0.8, 0.6, 0.6, 0.4, 0.4, 0.2, 0.2, 0, 0; 0, 1, 1, 1, 0.8, 0.8, 0.6, 0.6, 0.4, 0.4, 0.2, 0.2, 0, 0; 20, 1, 1, 1, 0.8, 0.8, 0.6, 0.6, 0.4, 0.4, 0.2, 0.2, 0, 0; 60, 1, 1, 1, 0.8, 0.8, 0.6, 0.6, 0.4, 0.4, 0.2, 0.2, 0, 0];
+  parameter Real Glb_tblGrd[5, 5] = [0, -20, -0.9, -0.89, 100; -20, 0, 0, 0, 0; 1, 0, 0, 0, 0; 2, 0, 0, 0, 0; 100, 0, 0, 0, 0];
+  
   /****************************************/
   inner Modelica.Mechanics.MultiBody.World world(animateGround = true, groundColor = {130, 200, 130}, groundLength_u = 4, label2 = "z", n = {0, 0, -1}) annotation(
-    Placement(transformation(origin = {66, 15}, extent = {{-60, 0}, {-40, 20}})));
-  Visualization.TerrainTableVisualizer VisTerrainTbl(table = Glb_tblGrd) annotation(
-    Placement(transformation(origin = {46, 90}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Mechanics.MultiBody.Visualizers.FixedShape markerXaxis(shapeType = "box", length = 1.1*(Glb_grdXMax), width = 0.04, height = 0.03, lengthDirection = {1, 0, 0}, widthDirection = {0, 1, 0}, r_shape = {0, 0, 0}, color = {0, 0, 0}, specularCoefficient = 0.0) annotation(
-    Placement(transformation(origin = {60, 61}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Mechanics.MultiBody.Visualizers.FixedShape markerYaxis(shapeType = "box", length = 1.1*(Glb_grdYMax), width = 0.04, height = 0.03, lengthDirection = {0, 1, 0}, widthDirection = {1, 0, 0}, r_shape = {0, 0, 0}, color = {0, 0, 0}, specularCoefficient = 0.0) annotation(
-    Placement(transformation(origin = {60, 39}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Mechanics.MultiBody.Visualizers.FixedShape markerZaxis(shapeType = "box", length = 10*(Glb_grdZMax), width = 0.04, height = 0.03, lengthDirection = {0, 0, 1}, widthDirection = {1, 0, 0}, r_shape = {0, 0, 0}, color = {0, 0, 0}, specularCoefficient = 0.0) annotation(
-    Placement(transformation(origin = {60, 18}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Mechanics.MultiBody.Parts.BodyCylinder WheelL(r = {0, 0.1, 0}, length = Glb_WheelLength, diameter = Glb_WheelDiameter, r_0(each fixed = false), w_0_fixed = false, w_0_start = {0, 10, 0}) annotation(
+    Placement(transformation(origin = {90, 12}, extent = {{-60, 0}, {-40, 20}})));
+  Modelica.Mechanics.MultiBody.Parts.BodyCylinder WheelL(r = {0, 0.1, 0}, length = Glb_WheelLength, diameter = Glb_WheelDiameter, r_0(each fixed = false), w_0_fixed = false, w_0_start = {0, 10, 0}, innerDiameter = Glb_WheelDiameter - 0.1) annotation(
     Placement(transformation(origin = {86, 300}, extent = {{10, -10}, {-10, 10}})));
-  Modelica.Mechanics.MultiBody.Parts.BodyCylinder FuselageL(diameter = Glb_FuselageDiameter, length = Glb_FuselageLength, r = {0, 1, 0}, w_0_fixed = true, w_0_start = {Glb_w_0_x, Glb_w_0_y, Glb_w_0_z}) annotation(
+  Modelica.Mechanics.MultiBody.Parts.BodyCylinder FuselageL(diameter = Glb_FuselageDiameter, length = Glb_FuselageLength, r = {0, 1, 0}, w_0_fixed = true, w_0_start = {Glb_w_0_x, Glb_w_0_y, Glb_w_0_z}, density = Glb_FuselageDensity) annotation(
     Placement(transformation(origin = {202, 300}, extent = {{10, -10}, {-10, 10}})));
   Modelica.Mechanics.MultiBody.Parts.Body bodyCenter(m = 0.001, r_0(start = {0, 0, Glb_z0_Ctr}, each fixed = true)) annotation(
     Placement(transformation(origin = {230, 314}, extent = {{-4, -4}, {4, 4}}, rotation = 90)));
-  Modelica.Mechanics.MultiBody.Parts.BodyCylinder FuselageR(diameter = Glb_FuselageDiameter, length = Glb_FuselageLength, r = {0, 1, 0}) annotation(
+  Modelica.Mechanics.MultiBody.Parts.BodyCylinder FuselageR(diameter = Glb_FuselageDiameter, length = Glb_FuselageLength, r = {0, 1, 0}, density = Glb_FuselageDensity) annotation(
     Placement(transformation(origin = {248, 300}, extent = {{10, -10}, {-10, 10}})));
-  Modelica.Mechanics.MultiBody.Parts.BodyCylinder WheelR(diameter = Glb_WheelDiameter, length = Glb_WheelLength, r = {0, 0.1, 0}, r_0(each fixed = false), w_0_fixed = false, w_0_start = {0, 10, 0}) annotation(
+  Modelica.Mechanics.MultiBody.Parts.BodyCylinder WheelR(diameter = Glb_WheelDiameter, length = Glb_WheelLength, r = {0, 0.1, 0}, r_0(each fixed = false), w_0_fixed = false, w_0_start = {0, 10, 0}, innerDiameter = Glb_WheelDiameter - 0.1) annotation(
     Placement(transformation(origin = {380, 300}, extent = {{10, -10}, {-10, 10}})));
   Modelica.Mechanics.MultiBody.Sensors.CutForce cutForce(animation = false, resolveInFrame = Modelica.Mechanics.MultiBody.Types.ResolveInFrameA.world) annotation(
     Placement(transformation(origin = {230, 282}, extent = {{-6, 6}, {6, -6}}, rotation = -90)));
@@ -78,33 +73,34 @@ model ProtoPanjan_007
     Placement(transformation(origin = {454, 190}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
   Modelica.Mechanics.Translational.Sources.Position positionGrdR annotation(
     Placement(transformation(origin = {442, 140}, extent = {{-6, -6}, {6, 6}})));
-  Components.DiscEdgeBottomTranslation discEdgeBtmL(rDisc = WheelL.diameter/2) annotation(
+  GroundVehicleDynamics.Components.DiscEdgeBottomTranslation discEdgeBtmL(rDisc = WheelL.diameter/2) annotation(
     Placement(transformation(origin = {41, 300}, extent = {{10, -20}, {-10, 20}})));
-  Components.DiscEdgeBottomTranslation discEdgeBtmR(rDisc = WheelR.diameter/2) annotation(
+  GroundVehicleDynamics.Components.DiscEdgeBottomTranslation discEdgeBtmR(rDisc = WheelR.diameter/2) annotation(
     Placement(transformation(origin = {410, 300}, extent = {{10, -20}, {-10, 20}})));
   Modelica.Mechanics.MultiBody.Sensors.AbsolutePosition absolutePositionWhlBtmL(resolveInFrame = Modelica.Mechanics.MultiBody.Types.ResolveInFrameA.world) annotation(
     Placement(transformation(origin = {41, 228}, extent = {{-6, -6}, {6, 6}}, rotation = -90)));
   Modelica.Mechanics.MultiBody.Sensors.AbsolutePosition absolutePositionWhlBtmR(resolveInFrame = Modelica.Mechanics.MultiBody.Types.ResolveInFrameA.world) annotation(
     Placement(transformation(origin = {410, 226}, extent = {{-6, -6}, {6, 6}}, rotation = -90)));
-  Modelica.Blocks.Tables.CombiTable2Ds Table_zGrd_WheelR(table = Glb_tblGrd) annotation(
+  Modelica.Blocks.Tables.CombiTable2Ds Table_zGrd_WheelR(table = Glb_tblGrd, tableOnFile = true, tableName = "z_xy", fileName = Modelica.Utilities.Files.loadResource("modelica://GroundVehicleDynamics/Examples/Projects/Panjan/tableGrd_z_xy.txt"), delimiter = " ", smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments, extrapolation = Modelica.Blocks.Types.Extrapolation.HoldLastPoint) annotation(
     Placement(transformation(origin = {416, 168}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Mechanics.Translational.Sources.Position positionGrdL annotation(
     Placement(transformation(origin = {67, 140}, extent = {{-6, -6}, {6, 6}})));
-  Modelica.Blocks.Tables.CombiTable2Ds Table_zGrd_WheelL(table = Glb_tblGrd) annotation(
+  Modelica.Blocks.Tables.CombiTable2Ds Table_zGrd_WheelL(table = Glb_tblGrd, tableOnFile = true, tableName = "z_xy", fileName = Modelica.Utilities.Files.loadResource("modelica://GroundVehicleDynamics/Examples/Projects/Panjan/tableGrd_z_xy.txt"), delimiter = " ", smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments, extrapolation = Modelica.Blocks.Types.Extrapolation.HoldLastPoint) annotation(
     Placement(transformation(origin = {35, 168}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Mechanics.MultiBody.Sensors.AbsoluteAngularVelocity w_absoluteL(resolveInFrame = Modelica.Mechanics.MultiBody.Types.ResolveInFrameA.frame_a) annotation(
     Placement(transformation(origin = {21, 295}, extent = {{5, -5}, {-5, 5}}, rotation = 90)));
-  Components.WheelGroundTangentialForce FtWheelL(rDisc = Glb_WheelDiameter/2) annotation(
+  GroundVehicleDynamics.Components.WheelGroundTangentialForce FtWheelL(rDisc = Glb_WheelDiameter/2) annotation(
     Placement(transformation(origin = {59, 272}, extent = {{-14, -4}, {14, 4}})));
   Modelica.Mechanics.MultiBody.Sensors.AbsoluteAngularVelocity w_absoluteR(resolveInFrame = Modelica.Mechanics.MultiBody.Types.ResolveInFrameA.frame_a) annotation(
     Placement(transformation(origin = {429, 295}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Components.WheelGroundTangentialForce FtWheelR(rDisc = Glb_WheelDiameter/2) annotation(
+  GroundVehicleDynamics.Components.WheelGroundTangentialForce FtWheelR(rDisc = Glb_WheelDiameter/2) annotation(
     Placement(transformation(origin = {430, 270}, extent = {{-14, -4}, {14, 4}})));
   Modelica.Mechanics.MultiBody.Sensors.AbsoluteSensor absoluteSensor_ctr(animation = false, resolveInFrame = Modelica.Mechanics.MultiBody.Types.ResolveInFrameA.world, get_r = true, get_v = true, get_a = true, get_angles = true) annotation(
     Placement(transformation(origin = {217, 321}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
   Modelica.Mechanics.MultiBody.Sensors.AbsoluteAngles absoluteAngles_ctr annotation(
     Placement(transformation(origin = {205, 321}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
   //-----------------------------------------------------------------
+  /*
   parameter Integer nGrdCellX = size(Glb_tblGrd, 1) - 2 "x 方向セル数";
   parameter Integer nGrdCellY = size(Glb_tblGrd, 2) - 2 "y 方向セル数";
   parameter Real Glb_grdZMin = VisTerrainTbl.zMin;
@@ -113,6 +109,7 @@ model ProtoPanjan_007
   parameter Real Glb_grdXMax = Glb_tblGrd[size(Glb_tblGrd, 1), 1] "Glb_tblGrd 内の x 最大値";
   parameter Real Glb_grdYMin = Glb_tblGrd[1, 2] "Glb_tblGrd 内の Y 最小値";
   parameter Real Glb_grdYMax = Glb_tblGrd[1, size(Glb_tblGrd, 2)] "Glb_tblGrd 内の Y 最大値";
+  */
   //-----------------------------------------------------------------
   Modelica.Mechanics.MultiBody.Joints.Revolute revolute(phi(fixed = false, displayUnit = "deg"), useAxisFlange = false, animation = false, n = {0, 1, 0}) annotation(
     Placement(transformation(origin = {230, 340}, extent = {{-6, -6}, {6, 6}})));
@@ -376,13 +373,13 @@ model ProtoPanjan_007
     Placement(transformation(origin = {460, 400}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
   Modelica.Blocks.Sources.Constant const_Noise81[3](k = {0, 0, 0}) annotation(
     Placement(transformation(origin = {457, 413}, extent = {{3, -3}, {-3, 3}}, rotation = 90)));
-  Modelica.Blocks.Sources.Trapezoid trapezoid_RocketThrust[3](amplitude = {Glb_RocketThrustNominal, 0, 0}, rising = {1, 0, 0}, width = {30, 0, 0}, falling = {1, 0, 0}, period = {80, 0, 0}, nperiod = {1, 0, 0}, offset = {0, 0, 0}, startTime = {20, 0, 0}) annotation(
-    Placement(transformation(origin = {143, 465}, extent = {{-7, -7}, {7, 7}})));
-  Components.DiscEdgeBottomTranslation discEdgeBtmL1(rDisc = WheelL.diameter/2) annotation(
+  Modelica.Blocks.Sources.Trapezoid trapezoid_RelRocketThrust[3](amplitude = {1, 0, 0}, rising = {0.5, 0, 0}, width = {40, 0, 0}, falling = {0.5, 0, 0}, period = {80, 0, 0}, nperiod = {1, 0, 0}, offset = {0, 0, 0}, startTime = {0.1, 0, 0}) annotation(
+    Placement(transformation(origin = {137, 493}, extent = {{-7, -7}, {7, 7}})));
+  GroundVehicleDynamics.Components.DiscEdgeBottomTranslation discEdgeBtmL1(rDisc = WheelL.diameter/2) annotation(
     Placement(transformation(origin = {126, 300}, extent = {{10, -20}, {-10, 20}})));
   Modelica.Mechanics.MultiBody.Sensors.AbsolutePosition absolutePositionWhlBtmL1(resolveInFrame = Modelica.Mechanics.MultiBody.Types.ResolveInFrameA.world) annotation(
     Placement(transformation(origin = {126, 228}, extent = {{-6, -6}, {6, 6}}, rotation = -90)));
-  Modelica.Blocks.Tables.CombiTable2Ds Table_zGrd_WheelL1(table = Glb_tblGrd) annotation(
+  Modelica.Blocks.Tables.CombiTable2Ds Table_zGrd_WheelL1(table = Glb_tblGrd, tableOnFile = true, tableName = "z_xy", fileName = Modelica.Utilities.Files.loadResource("modelica://GroundVehicleDynamics/Examples/Projects/Panjan/tableGrd_z_xy.txt"), delimiter = " ", smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments, extrapolation = Modelica.Blocks.Types.Extrapolation.HoldLastPoint) annotation(
     Placement(transformation(origin = {120, 168}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Mechanics.Translational.Sources.Position positionWhlBtmL1 annotation(
     Placement(transformation(origin = {142, 206}, extent = {{-6, -6}, {6, 6}})));
@@ -396,7 +393,7 @@ model ProtoPanjan_007
     Placement(transformation(origin = {176, 264}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Sources.Constant const1[3](k = {0, 0, 0}) annotation(
     Placement(transformation(origin = {161, 252}, extent = {{-4, -4}, {4, 4}})));
-  Components.WheelGroundTangentialForce FtWheelL1(rDisc = Glb_WheelDiameter/2) annotation(
+  GroundVehicleDynamics.Components.WheelGroundTangentialForce FtWheelL1(rDisc = Glb_WheelDiameter/2) annotation(
     Placement(transformation(origin = {146, 272}, extent = {{-14, -4}, {14, 4}})));
   Modelica.Mechanics.MultiBody.Forces.WorldForce forceNgrdR1(animation = false) annotation(
     Placement(transformation(origin = {359, 264}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
@@ -410,16 +407,28 @@ model ProtoPanjan_007
     Placement(transformation(origin = {344, 190}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
   Modelica.Mechanics.Translational.Sources.Position positionGrdR1 annotation(
     Placement(transformation(origin = {332, 140}, extent = {{-6, -6}, {6, 6}})));
-  Components.DiscEdgeBottomTranslation discEdgeBtmR1(rDisc = WheelR.diameter/2) annotation(
+  GroundVehicleDynamics.Components.DiscEdgeBottomTranslation discEdgeBtmR1(rDisc = WheelR.diameter/2) annotation(
     Placement(transformation(origin = {300, 300}, extent = {{10, -20}, {-10, 20}})));
   Modelica.Mechanics.MultiBody.Sensors.AbsolutePosition absolutePositionWhlBtmR1(resolveInFrame = Modelica.Mechanics.MultiBody.Types.ResolveInFrameA.world) annotation(
     Placement(transformation(origin = {300, 226}, extent = {{-6, -6}, {6, 6}}, rotation = -90)));
-  Modelica.Blocks.Tables.CombiTable2Ds Table_zGrd_WheelR1(table = Glb_tblGrd) annotation(
+  Modelica.Blocks.Tables.CombiTable2Ds Table_zGrd_WheelR1(table = Glb_tblGrd, tableOnFile = true, tableName = "z_xy", fileName = Modelica.Utilities.Files.loadResource("modelica://GroundVehicleDynamics/Examples/Projects/Panjan/tableGrd_z_xy.txt"), delimiter = " ", smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments, extrapolation = Modelica.Blocks.Types.Extrapolation.HoldLastPoint) annotation(
     Placement(transformation(origin = {306, 168}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Mechanics.MultiBody.Sensors.AbsoluteAngularVelocity w_absoluteR1(resolveInFrame = Modelica.Mechanics.MultiBody.Types.ResolveInFrameA.frame_a) annotation(
     Placement(transformation(origin = {319, 295}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Components.WheelGroundTangentialForce FtWheelR1(rDisc = Glb_WheelDiameter/2) annotation(
+  GroundVehicleDynamics.Components.WheelGroundTangentialForce FtWheelR1(rDisc = Glb_WheelDiameter/2) annotation(
     Placement(transformation(origin = {320, 270}, extent = {{-14, -4}, {14, 4}})));
+  Modelica.Mechanics.MultiBody.Visualizers.FixedShape VisTerrainData(shapeType = "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/tableGrd_z_xy.stl", length = 1, width = 1, height = 1, color = {255, 253, 208}, specularCoefficient = 0.8)  annotation(
+    Placement(transformation(origin = {66, 102}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Sources.Constant const_RocketThrustNominal[3](k = {Glb_RocketThrustNominal, 0, 0})  annotation(
+    Placement(transformation(origin = {137, 517}, extent = {{-7, -7}, {7, 7}})));
+  Modelica.Blocks.Math.Product product[3] annotation(
+    Placement(transformation(origin = {160, 466}, extent = {{-6, -6}, {6, 6}}, rotation = -90)));
+  Modelica.Mechanics.MultiBody.Visualizers.FixedShape VisXaxis(shapeType = "cylinder", length = 200, width = 0.05, height = 0.05, color = {255, 255, 255})  annotation(
+    Placement(transformation(origin = {90, 76}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Mechanics.MultiBody.Visualizers.FixedShape VisYaxis(color = {255, 255, 255}, height = 0.05, length = 100, shapeType = "cylinder", width = 0.05, lengthDirection = {0, 1, 0}, widthDirection = {1, 0, 0}) annotation(
+    Placement(transformation(origin = {90, 54}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Mechanics.MultiBody.Visualizers.FixedShape VisZaxis(color = {255, 255, 255}, height = 0.05, length = 5, lengthDirection = {0, 0, 1}, shapeType = "cylinder", width = 0.05, widthDirection = {1, 0, 0}) annotation(
+    Placement(transformation(origin = {90, 32}, extent = {{-10, -10}, {10, 10}})));
 equation
   connect(FuselageL.frame_b, WheelL.frame_a) annotation(
     Line(points = {{192, 300}, {96, 300}}, color = {95, 95, 95}));
@@ -501,14 +510,6 @@ equation
     Line(points = {{230, 310}, {205, 310}, {205, 316}}, color = {95, 95, 95}));
   connect(w_absoluteR.w[2], FtWheelR.u_wRoll) annotation(
     Line(points = {{429, 289.5}, {429, 286}, {416, 286}, {416, 274}}, color = {0, 0, 127}));
-  connect(world.frame_b, markerXaxis.frame_a) annotation(
-    Line(points = {{26, 25}, {38, 25}, {38, 61}, {50, 61}}, color = {95, 95, 95}));
-  connect(markerYaxis.frame_a, world.frame_b) annotation(
-    Line(points = {{50, 40}, {38, 40}, {38, 25}, {26, 25}}, color = {95, 95, 95}));
-  connect(world.frame_b, markerZaxis.frame_a) annotation(
-    Line(points = {{26, 25}, {38, 25}, {38, 18}, {50, 18}}, color = {95, 95, 95}));
-  connect(VisTerrainTbl.frame_a, world.frame_b) annotation(
-    Line(points = {{36, 90}, {30, 90}, {30, 25}, {26, 25}}, color = {95, 95, 95}));
   connect(FuselageL.frame_a, revolute.frame_a) annotation(
     Line(points = {{212, 300}, {224, 300}, {224, 340}}, color = {95, 95, 95}));
   connect(revolute.frame_b, bodyCenterNoRot.frame_a) annotation(
@@ -805,8 +806,6 @@ equation
     Line(points = {{160, 436}, {743, 436}, {743, 406}}, color = {0, 0, 127}, thickness = 0.5));
   connect(gain.y, addThrustR.u1) annotation(
     Line(points = {{160, 436}, {783, 436}, {783, 406}}, color = {0, 0, 127}, thickness = 0.5));
-  connect(trapezoid_RocketThrust.y, gain.u) annotation(
-    Line(points = {{151, 465}, {160, 465}, {160, 442}}, color = {0, 0, 127}, thickness = 0.5));
   connect(WheelL.frame_a, discEdgeBtmL1.frame_a) annotation(
     Line(points = {{96, 300}, {126, 300}}, color = {95, 95, 95}));
   connect(absolutePositionWhlBtmL1.r[1], Table_zGrd_WheelL1.u1) annotation(
@@ -875,11 +874,25 @@ equation
     Line(points = {{319, 289.5}, {319, 286}, {306, 286}, {306, 274}}, color = {0, 0, 127}));
   connect(WheelR.frame_b, discEdgeBtmR1.frame_a) annotation(
     Line(points = {{370, 300}, {300, 300}}, color = {95, 95, 95}));
+  connect(VisTerrainData.frame_a, world.frame_b) annotation(
+    Line(points = {{56, 102}, {56, 22}, {50, 22}}, color = {95, 95, 95}));
+  connect(product.y, gain.u) annotation(
+    Line(points = {{160, 459}, {160, 442}}, color = {0, 0, 127}, thickness = 0.5));
+  connect(const_RocketThrustNominal.y, product.u1) annotation(
+    Line(points = {{145, 517}, {164, 517}, {164, 473}}, color = {0, 0, 127}, thickness = 0.5));
+  connect(trapezoid_RelRocketThrust.y, product.u2) annotation(
+    Line(points = {{145, 493}, {156, 493}, {156, 473}}, color = {0, 0, 127}, thickness = 0.5));
+  connect(world.frame_b, VisXaxis.frame_a) annotation(
+    Line(points = {{50, 22}, {62, 22}, {62, 76}, {80, 76}}, color = {95, 95, 95}));
+  connect(VisYaxis.frame_a, world.frame_b) annotation(
+    Line(points = {{80, 54}, {62, 54}, {62, 22}, {50, 22}}, color = {95, 95, 95}));
+  connect(VisZaxis.frame_a, world.frame_b) annotation(
+    Line(points = {{80, 32}, {62, 32}, {62, 22}, {50, 22}}, color = {95, 95, 95}));
   annotation(
-    Diagram(coordinateSystem(extent = {{-300, 480}, {800, 0}}), graphics = {Text(origin = {170, 449}, extent = {{-46, 5}, {46, -5}}, textString = "multiply by 2 because each strut has 2 rocket motors", horizontalAlignment = TextAlignment.Left)}),
+    Diagram(coordinateSystem(extent = {{-300, 540}, {800, 0}}), graphics = {Text(origin = {170, 449}, extent = {{-46, 5}, {46, -5}}, textString = "multiply by 2 because each strut has 2 rocket motors", horizontalAlignment = TextAlignment.Left)}),
     version = "",
     uses(Modelica(version = "4.1.0")),
-    experiment(StartTime = 0, StopTime = 25, Tolerance = 1e-06, Interval = 0.05),
-    __OpenModelica_simulationFlags(lv = "LOG_STDOUT,LOG_ASSERT,LOG_STATS", s = "dassl", variableFilter = ".*"),
-  __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian");
-end ProtoPanjan_007;
+    experiment(StartTime = 0, StopTime = 50, Tolerance = 1e-05, Interval = 0.05),
+    __OpenModelica_simulationFlags(lv = "LOG_STDOUT,LOG_ASSERT,LOG_STATS", s = "dassl", variableFilter = ".*"));
+
+end ProtoPanjan_008;

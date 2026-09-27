@@ -1,0 +1,34 @@
+# TerrainTable2stl control file
+#
+# This file must be placed in the same folder as TerrainTable2stl.py.
+# Relative paths are interpreted relative to that folder, not the current
+# working directory. Therefore the script can be double-clicked from Explorer
+# without depending on where it is launched from.
+#
+# INPUT_FILE and OUTPUT_FILE may be relative paths or absolute paths.
+# The output folder is created automatically if it does not exist.
+
+# Modelica CombiTable2D / CombiTable2Ds text table input file
+INPUT_FILE = tableGrd_z_xy.txt
+
+# Name following 'double' in the input file, for example:
+# double z_xy(59,38)
+TABLE_NAME = z_xy
+
+# Generated ASCII STL file
+OUTPUT_FILE = tableGrd_z_xy.stl
+
+# STL z coordinate = Z_SCALE * table z value
+Z_SCALE = 1.0
+
+# false: create only the triangulated top terrain surface.
+# true : additionally create vertical boundary walls and a flat bottom face,
+#        making a closed STL solid. This makes the file larger.
+CLOSE_SOLID = false
+
+# Bottom elevation when CLOSE_SOLID = true.
+BASE_Z = -0.1
+
+# Keep the terminal window open after success/failure when started by
+# double-click. Recommended true while setting up.
+PAUSE_ON_EXIT = true
