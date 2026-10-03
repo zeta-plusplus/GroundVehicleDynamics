@@ -5,8 +5,12 @@ model ProtoPanjan_008
   extends Modelica.Icons.Example;
   /****************************************/
   parameter Boolean Glb_AnimateRocketThrust = true;
+  //"modelica://GroundVehicleDynamics/Examples/Projects/Panjan/tableGrd_z_xy.txt"
+  //"modelica://GroundVehicleDynamics/Examples/Projects/Panjan/tableGrd_z_xy.stl"
+  parameter String Glb_terrainDatFile= "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_randomBump_1.txt";
+  parameter String Glb_terrainStlFile= "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_randomBump_1.stl";
   //
-  parameter Modelica.Units.SI.Force Glb_RocketThrustNominal = 170;
+  parameter Modelica.Units.SI.Force Glb_RocketThrustNominal = 340;
   parameter Modelica.Units.SI.Length Glb_WheelDiameter = 3;
   parameter Modelica.Units.SI.Length Glb_WheelLength = 0.1;
   parameter Modelica.Units.SI.Length Glb_RocketLength = 0.6;
@@ -18,7 +22,7 @@ model ProtoPanjan_008
   parameter Modelica.Units.SI.Density Glb_FuselageDensity=0.5*Glb_FuselageMass/(Modelica.Constants.pi/4*Glb_FuselageDiameter^2*Glb_FuselageLength);
   parameter Modelica.Units.SI.Length Glb_StrutLength = Glb_WheelDiameter/2;
   parameter Modelica.Units.SI.Length Glb_StrutDiameter = 0.1;
-  parameter Modelica.Units.SI.Length Glb_FuselageLength = 1;
+  parameter Modelica.Units.SI.Length Glb_FuselageLength = 0.6;
   //
   parameter Modelica.Units.SI.Length Glb_z0_WhlBtm_Rel = 0;
   parameter Modelica.Units.SI.Length Glb_x0_Ctr = 0;
@@ -30,7 +34,7 @@ model ProtoPanjan_008
   //
   parameter Modelica.Units.SI.TranslationalSpringConstant Glb_c_GrdCntct = 1e6;
   parameter Modelica.Units.SI.TranslationalDampingConstant Glb_d_GrdCntct = 1e5;
-  parameter Modelica.Units.SI.Length Glb_s_rel0_GrdCntct = 1e-5;
+  parameter Modelica.Units.SI.Length Glb_s_rel0_GrdCntct = 0.01;
   parameter Modelica.Units.SI.TranslationalDampingConstant Glb_WheelcSlip = 100;
   parameter Modelica.Units.SI.TranslationalDampingConstant Glb_WheelcSide = 5000;
   /****************************************/
@@ -81,11 +85,11 @@ model ProtoPanjan_008
     Placement(transformation(origin = {41, 228}, extent = {{-6, -6}, {6, 6}}, rotation = -90)));
   Modelica.Mechanics.MultiBody.Sensors.AbsolutePosition absolutePositionWhlBtmR(resolveInFrame = Modelica.Mechanics.MultiBody.Types.ResolveInFrameA.world) annotation(
     Placement(transformation(origin = {410, 226}, extent = {{-6, -6}, {6, 6}}, rotation = -90)));
-  Modelica.Blocks.Tables.CombiTable2Ds Table_zGrd_WheelR(table = Glb_tblGrd, tableOnFile = true, tableName = "z_xy", fileName = Modelica.Utilities.Files.loadResource("modelica://GroundVehicleDynamics/Examples/Projects/Panjan/tableGrd_z_xy.txt"), delimiter = " ", smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments, extrapolation = Modelica.Blocks.Types.Extrapolation.HoldLastPoint) annotation(
+  Modelica.Blocks.Tables.CombiTable2Ds Table_zGrd_WheelR(table = Glb_tblGrd, tableOnFile = true, tableName = "z_xy", fileName = Modelica.Utilities.Files.loadResource(Glb_terrainDatFile), delimiter = " ", smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments, extrapolation = Modelica.Blocks.Types.Extrapolation.HoldLastPoint) annotation(
     Placement(transformation(origin = {416, 168}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Mechanics.Translational.Sources.Position positionGrdL annotation(
     Placement(transformation(origin = {67, 140}, extent = {{-6, -6}, {6, 6}})));
-  Modelica.Blocks.Tables.CombiTable2Ds Table_zGrd_WheelL(table = Glb_tblGrd, tableOnFile = true, tableName = "z_xy", fileName = Modelica.Utilities.Files.loadResource("modelica://GroundVehicleDynamics/Examples/Projects/Panjan/tableGrd_z_xy.txt"), delimiter = " ", smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments, extrapolation = Modelica.Blocks.Types.Extrapolation.HoldLastPoint) annotation(
+  Modelica.Blocks.Tables.CombiTable2Ds Table_zGrd_WheelL(table = Glb_tblGrd, tableOnFile = true, tableName = "z_xy", fileName = Modelica.Utilities.Files.loadResource(Glb_terrainDatFile), delimiter = " ", smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments, extrapolation = Modelica.Blocks.Types.Extrapolation.HoldLastPoint) annotation(
     Placement(transformation(origin = {35, 168}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Mechanics.MultiBody.Sensors.AbsoluteAngularVelocity w_absoluteL(resolveInFrame = Modelica.Mechanics.MultiBody.Types.ResolveInFrameA.frame_a) annotation(
     Placement(transformation(origin = {21, 295}, extent = {{5, -5}, {-5, 5}}, rotation = 90)));
@@ -373,13 +377,13 @@ model ProtoPanjan_008
     Placement(transformation(origin = {460, 400}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
   Modelica.Blocks.Sources.Constant const_Noise81[3](k = {0, 0, 0}) annotation(
     Placement(transformation(origin = {457, 413}, extent = {{3, -3}, {-3, 3}}, rotation = 90)));
-  Modelica.Blocks.Sources.Trapezoid trapezoid_RelRocketThrust[3](amplitude = {1, 0, 0}, rising = {0.5, 0, 0}, width = {40, 0, 0}, falling = {0.5, 0, 0}, period = {80, 0, 0}, nperiod = {1, 0, 0}, offset = {0, 0, 0}, startTime = {0.1, 0, 0}) annotation(
+  Modelica.Blocks.Sources.Trapezoid trapezoid_RelRocketThrust[3](amplitude = {1, 0, 0}, rising = {0.5, 0, 0}, width = {20, 0, 0}, falling = {0.5, 0, 0}, period = {40, 0, 0}, nperiod = {1, 0, 0}, offset = {0, 0, 0}, startTime = {0.1, 0, 0}) annotation(
     Placement(transformation(origin = {137, 493}, extent = {{-7, -7}, {7, 7}})));
   GroundVehicleDynamics.Components.DiscEdgeBottomTranslation discEdgeBtmL1(rDisc = WheelL.diameter/2) annotation(
     Placement(transformation(origin = {126, 300}, extent = {{10, -20}, {-10, 20}})));
   Modelica.Mechanics.MultiBody.Sensors.AbsolutePosition absolutePositionWhlBtmL1(resolveInFrame = Modelica.Mechanics.MultiBody.Types.ResolveInFrameA.world) annotation(
     Placement(transformation(origin = {126, 228}, extent = {{-6, -6}, {6, 6}}, rotation = -90)));
-  Modelica.Blocks.Tables.CombiTable2Ds Table_zGrd_WheelL1(table = Glb_tblGrd, tableOnFile = true, tableName = "z_xy", fileName = Modelica.Utilities.Files.loadResource("modelica://GroundVehicleDynamics/Examples/Projects/Panjan/tableGrd_z_xy.txt"), delimiter = " ", smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments, extrapolation = Modelica.Blocks.Types.Extrapolation.HoldLastPoint) annotation(
+  Modelica.Blocks.Tables.CombiTable2Ds Table_zGrd_WheelL1(table = Glb_tblGrd, tableOnFile = true, tableName = "z_xy", fileName = Modelica.Utilities.Files.loadResource(Glb_terrainDatFile), delimiter = " ", smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments, extrapolation = Modelica.Blocks.Types.Extrapolation.HoldLastPoint) annotation(
     Placement(transformation(origin = {120, 168}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Mechanics.Translational.Sources.Position positionWhlBtmL1 annotation(
     Placement(transformation(origin = {142, 206}, extent = {{-6, -6}, {6, 6}})));
@@ -411,13 +415,13 @@ model ProtoPanjan_008
     Placement(transformation(origin = {300, 300}, extent = {{10, -20}, {-10, 20}})));
   Modelica.Mechanics.MultiBody.Sensors.AbsolutePosition absolutePositionWhlBtmR1(resolveInFrame = Modelica.Mechanics.MultiBody.Types.ResolveInFrameA.world) annotation(
     Placement(transformation(origin = {300, 226}, extent = {{-6, -6}, {6, 6}}, rotation = -90)));
-  Modelica.Blocks.Tables.CombiTable2Ds Table_zGrd_WheelR1(table = Glb_tblGrd, tableOnFile = true, tableName = "z_xy", fileName = Modelica.Utilities.Files.loadResource("modelica://GroundVehicleDynamics/Examples/Projects/Panjan/tableGrd_z_xy.txt"), delimiter = " ", smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments, extrapolation = Modelica.Blocks.Types.Extrapolation.HoldLastPoint) annotation(
+  Modelica.Blocks.Tables.CombiTable2Ds Table_zGrd_WheelR1(table = Glb_tblGrd, tableOnFile = true, tableName = "z_xy", fileName = Modelica.Utilities.Files.loadResource(Glb_terrainDatFile), delimiter = " ", smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments, extrapolation = Modelica.Blocks.Types.Extrapolation.HoldLastPoint) annotation(
     Placement(transformation(origin = {306, 168}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Mechanics.MultiBody.Sensors.AbsoluteAngularVelocity w_absoluteR1(resolveInFrame = Modelica.Mechanics.MultiBody.Types.ResolveInFrameA.frame_a) annotation(
     Placement(transformation(origin = {319, 295}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
   GroundVehicleDynamics.Components.WheelGroundTangentialForce FtWheelR1(rDisc = Glb_WheelDiameter/2) annotation(
     Placement(transformation(origin = {320, 270}, extent = {{-14, -4}, {14, 4}})));
-  Modelica.Mechanics.MultiBody.Visualizers.FixedShape VisTerrainData(shapeType = "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/tableGrd_z_xy.stl", length = 1, width = 1, height = 1, color = {255, 253, 208}, specularCoefficient = 0.8)  annotation(
+  Modelica.Mechanics.MultiBody.Visualizers.FixedShape VisTerrainData(shapeType = Glb_terrainStlFile, length = 1, width = 1, height = 1, color = {255, 253, 208}, specularCoefficient = 0.8)  annotation(
     Placement(transformation(origin = {66, 102}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Constant const_RocketThrustNominal[3](k = {Glb_RocketThrustNominal, 0, 0})  annotation(
     Placement(transformation(origin = {137, 517}, extent = {{-7, -7}, {7, 7}})));
