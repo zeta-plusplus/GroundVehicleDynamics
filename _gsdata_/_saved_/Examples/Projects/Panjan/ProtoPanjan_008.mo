@@ -22,7 +22,7 @@ model ProtoPanjan_008
   parameter Modelica.Units.SI.Density Glb_FuselageDensity=0.5*Glb_FuselageMass/(Modelica.Constants.pi/4*Glb_FuselageDiameter^2*Glb_FuselageLength);
   parameter Modelica.Units.SI.Length Glb_StrutLength = Glb_WheelDiameter/2;
   parameter Modelica.Units.SI.Length Glb_StrutDiameter = 0.1;
-  parameter Modelica.Units.SI.Length Glb_FuselageLength = 1;
+  parameter Modelica.Units.SI.Length Glb_FuselageLength = 0.6;
   //
   parameter Modelica.Units.SI.Length Glb_z0_WhlBtm_Rel = 0;
   parameter Modelica.Units.SI.Length Glb_x0_Ctr = 0;

@@ -9,14 +9,14 @@
 # The output folder is created automatically if it does not exist.
 
 # Modelica CombiTable2D / CombiTable2Ds text table input file
-INPUT_FILE = tableGrd_z_xy_wave_1.txt
+INPUT_FILE = tableGrd_z_xy_randomBump_1.txt
 
 # Name following 'double' in the input file, for example:
 # double z_xy(59,38)
 TABLE_NAME = z_xy
 
 # Generated ASCII STL file
-OUTPUT_FILE = tableGrd_z_xy_wave_1.stl
+OUTPUT_FILE = tableGrd_z_xy_randomBump_1.stl
 
 # STL z coordinate = Z_SCALE * table z value
 Z_SCALE = 1.0

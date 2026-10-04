@@ -1,0 +1,9 @@
+# Place this file beside TerrainTable2MultiStl.py. Relative paths are resolved
+# relative to the script folder, regardless of the working directory.
+INPUT_FILE = tableGrd_z_xy_randomBump_1.txt
+TABLE_NAME = z_xy
+# OUTPUT_FILE gives the base name: terrain_z_xy[1].stl ... terrain_z_xy[10].stl
+OUTPUT_FILE = tableGrd_z_xy_randomBump_1.stl
+LEVELS = 10
+Z_SCALE = 1.0
+PAUSE_ON_EXIT = true
