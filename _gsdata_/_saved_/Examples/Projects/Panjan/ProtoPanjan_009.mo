@@ -4,7 +4,7 @@ model ProtoPanjan_009
   extends Modelica.Icons.Example;
   /****************************************/
   parameter Boolean Glb_AnimateRocketThrust = true;
-  parameter String Glb_terrainDatFile = "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_wave_1.txt";
+  parameter String Glb_terrainDatFile = "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_randomBump_1.txt";
     /*
     "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/tableGrd_z_xy.txt"
     */
@@ -435,17 +435,17 @@ model ProtoPanjan_009
     parameter Integer n = 10;
     
     parameter String fileName[n]={
-      "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_wave_1[1].stl",
-      "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_wave_1[2].stl",
-      "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_wave_1[3].stl",
-      "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_wave_1[4].stl",
-      "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_wave_1[5].stl",
+      "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_randomBump_1[1].stl",
+      "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_randomBump_1[2].stl",
+      "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_randomBump_1[3].stl",
+      "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_randomBump_1[4].stl",
+      "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_randomBump_1[5].stl",
       
-      "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_wave_1[6].stl",
-      "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_wave_1[7].stl",
-      "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_wave_1[8].stl",
-      "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_wave_1[9].stl",
-      "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_wave_1[10].stl"
+      "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_randomBump_1[6].stl",
+      "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_randomBump_1[7].stl",
+      "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_randomBump_1[8].stl",
+      "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_randomBump_1[9].stl",
+      "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_randomBump_1[10].stl"
     };  
     
   end TerrainSTL;

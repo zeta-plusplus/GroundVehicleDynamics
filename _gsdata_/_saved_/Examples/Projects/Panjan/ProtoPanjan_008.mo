@@ -7,8 +7,8 @@ model ProtoPanjan_008
   parameter Boolean Glb_AnimateRocketThrust = true;
   //"modelica://GroundVehicleDynamics/Examples/Projects/Panjan/tableGrd_z_xy.txt"
   //"modelica://GroundVehicleDynamics/Examples/Projects/Panjan/tableGrd_z_xy.stl"
-  parameter String Glb_terrainDatFile= "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_randomBump_1.txt";
-  parameter String Glb_terrainStlFile= "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_randomBump_1.stl";
+  parameter String Glb_terrainDatFile= "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_flat.txt";
+  parameter String Glb_terrainStlFile= "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_flat.stl";
   //
   parameter Modelica.Units.SI.Force Glb_RocketThrustNominal = 340;
   parameter Modelica.Units.SI.Length Glb_WheelDiameter = 3;
@@ -45,11 +45,11 @@ model ProtoPanjan_008
     Placement(transformation(origin = {90, 12}, extent = {{-60, 0}, {-40, 20}})));
   Modelica.Mechanics.MultiBody.Parts.BodyCylinder WheelL(r = {0, 0.1, 0}, length = Glb_WheelLength, diameter = Glb_WheelDiameter, r_0(each fixed = false), w_0_fixed = false, w_0_start = {0, 10, 0}, innerDiameter = Glb_WheelDiameter - 0.1) annotation(
     Placement(transformation(origin = {86, 300}, extent = {{10, -10}, {-10, 10}})));
-  Modelica.Mechanics.MultiBody.Parts.BodyCylinder FuselageL(diameter = Glb_FuselageDiameter, length = Glb_FuselageLength, r = {0, 1, 0}, w_0_fixed = true, w_0_start = {Glb_w_0_x, Glb_w_0_y, Glb_w_0_z}, density = Glb_FuselageDensity) annotation(
+  Modelica.Mechanics.MultiBody.Parts.BodyCylinder FuselageL(diameter = Glb_FuselageDiameter, length = Glb_FuselageLength, r = {0, Glb_FuselageLength, 0}, w_0_fixed = true, w_0_start = {Glb_w_0_x, Glb_w_0_y, Glb_w_0_z}, density = Glb_FuselageDensity) annotation(
     Placement(transformation(origin = {202, 300}, extent = {{10, -10}, {-10, 10}})));
   Modelica.Mechanics.MultiBody.Parts.Body bodyCenter(m = 0.001, r_0(start = {0, 0, Glb_z0_Ctr}, each fixed = true)) annotation(
     Placement(transformation(origin = {230, 314}, extent = {{-4, -4}, {4, 4}}, rotation = 90)));
-  Modelica.Mechanics.MultiBody.Parts.BodyCylinder FuselageR(diameter = Glb_FuselageDiameter, length = Glb_FuselageLength, r = {0, 1, 0}, density = Glb_FuselageDensity) annotation(
+  Modelica.Mechanics.MultiBody.Parts.BodyCylinder FuselageR(diameter = Glb_FuselageDiameter, length = Glb_FuselageLength, r = {0, Glb_FuselageLength, 0}, density = Glb_FuselageDensity) annotation(
     Placement(transformation(origin = {248, 300}, extent = {{10, -10}, {-10, 10}})));
   Modelica.Mechanics.MultiBody.Parts.BodyCylinder WheelR(diameter = Glb_WheelDiameter, length = Glb_WheelLength, r = {0, 0.1, 0}, r_0(each fixed = false), w_0_fixed = false, w_0_start = {0, 10, 0}, innerDiameter = Glb_WheelDiameter - 0.1) annotation(
     Placement(transformation(origin = {380, 300}, extent = {{10, -10}, {-10, 10}})));
@@ -529,7 +529,7 @@ equation
   connect(fixedRot_RocketL1.frame_a, StrutL1.frame_b) annotation(
     Line(points = {{0, 359}, {0, 354}}, color = {95, 95, 95}));
   connect(RocketL1.frame_a, fixedRot_RocketL1.frame_b) annotation(
-    Line(points = {{6, 367}, {-0 - 16, 367}}, color = {95, 95, 95}));
+    Line(points = {{6, 367}, {0, 367}}, color = {95, 95, 95}));
   connect(fixedRot_StrutL.frame_b, StrutL.frame_a) annotation(
     Line(points = {{40, 336}, {40, 340}}, color = {95, 95, 95}));
   connect(fixedRot_RocketL.frame_a, StrutL.frame_b) annotation(
