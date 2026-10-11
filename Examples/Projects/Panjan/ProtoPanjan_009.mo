@@ -4,7 +4,7 @@ model ProtoPanjan_009
   extends Modelica.Icons.Example;
   /****************************************/
   parameter Boolean Glb_AnimateRocketThrust = true;
-  parameter String Glb_terrainDatFile = "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_wave_1.txt";
+  parameter String Glb_terrainDatFile = "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_wave_3.txt";
     /*
     "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/tableGrd_z_xy.txt"
     */
@@ -435,17 +435,17 @@ model ProtoPanjan_009
     parameter Integer n = 10;
     
     parameter String fileName[n]={
-      "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_wave_1[1].stl",
-      "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_wave_1[2].stl",
-      "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_wave_1[3].stl",
-      "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_wave_1[4].stl",
-      "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_wave_1[5].stl",
+      "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_wave_3[1].stl",
+      "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_wave_3[2].stl",
+      "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_wave_3[3].stl",
+      "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_wave_3[4].stl",
+      "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_wave_3[5].stl",
       
-      "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_wave_1[6].stl",
-      "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_wave_1[7].stl",
-      "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_wave_1[8].stl",
-      "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_wave_1[9].stl",
-      "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_wave_1[10].stl"
+      "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_wave_3[6].stl",
+      "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_wave_3[7].stl",
+      "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_wave_3[8].stl",
+      "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_wave_3[9].stl",
+      "modelica://GroundVehicleDynamics/Examples/Projects/Panjan/TerrainData/tableGrd_z_xy_wave_3[10].stl"
     };  
     
   end TerrainSTL;
@@ -915,7 +915,7 @@ equation
     Diagram(coordinateSystem(extent = {{-300, 540}, {800, 0}}), graphics = {Text(origin = {170, 449}, extent = {{-46, 5}, {46, -5}}, textString = "multiply by 2 because each strut has 2 rocket motors", horizontalAlignment = TextAlignment.Left)}),
     version = "",
     uses(Modelica(version = "4.1.0")),
-    experiment(StartTime = 0, StopTime = 50, Tolerance = 1e-05, Interval = 0.05),
+    experiment(StartTime = 0, StopTime = 30, Tolerance = 1e-05, Interval = 0.05),
     __OpenModelica_simulationFlags(lv = "LOG_STDOUT,LOG_ASSERT,LOG_STATS", s = "dassl", variableFilter = ".*"));
 
 end ProtoPanjan_009;
