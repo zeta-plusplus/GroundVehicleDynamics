@@ -529,7 +529,7 @@ equation
   connect(fixedRot_RocketL1.frame_a, StrutL1.frame_b) annotation(
     Line(points = {{0, 359}, {0, 354}}, color = {95, 95, 95}));
   connect(RocketL1.frame_a, fixedRot_RocketL1.frame_b) annotation(
-    Line(points = {{6, 367}, {0, 367}}, color = {95, 95, 95}));
+    Line(points = {{6, 367}, {-0 - 16, 367}}, color = {95, 95, 95}));
   connect(fixedRot_StrutL.frame_b, StrutL.frame_a) annotation(
     Line(points = {{40, 336}, {40, 340}}, color = {95, 95, 95}));
   connect(fixedRot_RocketL.frame_a, StrutL.frame_b) annotation(
